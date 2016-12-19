@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/eeeeee"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d10"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/person_card_date_btn"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:padding="@dimen/d10"-->
+                    <!--android:textColor="@color/colorPrimary"-->
+                    <!--android:background="@drawable/personal_card_date"-->
+                    <!--android:text="2016年12月▽" />-->
+
+                    <com.chaungying.modues.main.spinner_view.NiceSpinner xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/nice_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/d10"
+                        android:layout_marginTop="@dimen/d10"
+                        app:textTint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/personal_sigin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/d20"
+                        android:padding="@dimen/d10"
+                        android:text="查看完整签到>"
+                        android:textColor="@color/colorPrimary" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/d10">
+
+                    <ImageView
+                        android:id="@+id/personal_card_iv_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/first_rank" />
+
+                    <TextView
+                        android:id="@+id/avgWorks"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/d4"
+                        android:layout_toRightOf="@id/personal_card_iv_rank"
+                        android:text="本月平均工时：0"
+                        android:textColor="@color/black1" />
+
+                    <TextView
+                        android:id="@+id/departmentrRank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/d20"
+                        android:text="部门内排名：0"
+                        android:textColor="@color/black1" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/gray_line"
+                    android:background="@color/eeeeee" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        android:id="@+id/cqDays"
+                        layout="@layout/include_personal_card_blue" />
+
+                    <include
+                        android:id="@+id/zcdk"
+                        layout="@layout/include_personal_card_blue" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        android:id="@+id/earlyPeople"
+                        layout="@layout/include_personal_card_yellow" />
+
+                    <include
+                        android:id="@+id/tardinessPeople"
+                        layout="@layout/include_personal_card_yellow" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="wrap_content">
+
+                    <include
+                        android:id="@+id/absenteeismPeople"
+                        layout="@layout/include_personal_card_yellow" />
+
+                    <include layout="@layout/include_personal_card_yellow"
+                        android:visibility="invisible"
+                        android:id="@+id/test"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d15"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/d4">
+
+                    <ImageView
+                        android:layout_width="@dimen/d20"
+                        android:layout_height="@dimen/d20"
+                        android:src="@drawable/personal_anays_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d10"
+                        android:text="报修分析" />
+
+                </LinearLayout>
+
+                <com.chaungying.modues.main.view.FillListView
+                    android:id="@+id/lv_repair_analysis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/gray_line"
+                    android:background="@color/white" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/d15"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/d4">
+
+                    <ImageView
+                        android:layout_width="@dimen/d20"
+                        android:layout_height="@dimen/d20"
+                        android:src="@drawable/personal_anays_img" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/d10"
+                        android:text="完成率分析" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/gray_line"
+                    android:background="@color/eeeeee" />
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart1"
+                    android:layout_width="300dp"
+                    android:layout_height="200dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/pieChart1"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:paddingBottom="@dimen/d10">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/shape_point_fanshaped6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="完成数量" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/d10"
+                        android:src="@drawable/shape_point_fanshaped4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未完成数量" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

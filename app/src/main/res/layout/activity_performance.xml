@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/huise3"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_bar" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/huise3"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/d8"
+                android:padding="@dimen/d6"
+                android:text="维修派工"
+                android:textColor="@color/vice_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/per_ji_xiao_rank"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/per_sige_ren" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="绩效排名"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:id="@+id/per_finish_rate"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/per_shan_dian" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="完成率分析"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:id="@+id/per_time_anay"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/per_qu_xian" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="时间分析"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/d8"
+                android:padding="@dimen/d6"
+                android:text="签到分析"
+                android:textColor="@color/vice_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/per_singin_anay"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/per_qian_dao_fen_xi" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="日趋势分析"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:id="@+id/ll_kao_qin_fen_xi"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/kao_qin_fen_xi" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="签到分析"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d80"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/d8"
+                android:padding="@dimen/d6"
+                android:text="投诉咨询"
+                android:textColor="@color/vice_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/per_complaining_advisory"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/per_zhu_zhuang" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="投诉咨询"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d80"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d80"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/d8"
+                android:padding="@dimen/d6"
+                android:text="其他分析"
+                android:textColor="@color/vice_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/per_user_car"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d95"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="@dimen/d45"
+                        android:layout_height="@dimen/d45"
+                        android:src="@drawable/per_di_zeng_zhu_zhuang" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="用车情况"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d80"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/itemLineSize"
+                    android:layout_height="match_parent"
+                    android:background="@color/huise3" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/d80"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

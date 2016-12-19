@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/d10">
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ems="4"
+        android:text="正常打卡"
+        android:textColor="@color/vice_title"
+        android:textSize="@dimen/TextSize_5" />
+
+    <ProgressBar
+        android:id="@+id/tong_ji_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@id/tv_progress"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:progress="50"
+        android:progressDrawable="@drawable/tong_ji_progress_style" />
+
+    <!--<com.chaungying.qiandao.view.ProgressLand-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="20dp"-->
+        <!--app:tongJi_barColor="@color/colorPrimary"-->
+        <!--app:tongJi_rimLength="50dp"-->
+        <!--app:tongJi_rimWidth="20dp"-->
+        <!--app:tongJi_barLength="30dp"-->
+        <!--app:tongJi_barWidth="5dp"-->
+        <!--app:tongJi_rimColor="@color/huise2" />-->
+
+</LinearLayout>

@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f8f8f8"
+    android:orientation="vertical">
+
+    <include layout="@layout/include_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:scrollbars="none"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_qian_dao_tong_ji"
+                android:layout_margin="@dimen/d10"
+                android:padding="@dimen/d2"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/d10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="本月勤奋榜"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_4" />
+
+                    <TextView
+                        android:id="@+id/search_full_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="查看完整排行榜 >"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/TextSize_4" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:padding="@dimen/d15">
+
+                    <include
+                        android:id="@+id/rl_1"
+                        layout="@layout/include_manager_tong_ji" />
+
+                    <include
+                        android:id="@+id/rl_2"
+                        layout="@layout/include_manager_tong_ji" />
+
+                    <include
+                        android:id="@+id/rl_3"
+                        layout="@layout/include_manager_tong_ji" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/d10"
+                android:layout_marginRight="@dimen/d10"
+                android:padding="@dimen/d2"
+                android:background="@drawable/shape_qian_dao_tong_ji"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/d10"
+                    android:text="总体考勤情况"
+                    android:textColor="@color/black1"
+                    android:textSize="@dimen/TextSize_4" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/d10"
+                    android:layout_marginBottom="@dimen/d10"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:id="@+id/date_left"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:padding="@dimen/d4"
+                        android:src="@drawable/date_left" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/d10"
+                        android:layout_toRightOf="@id/date_left"
+                        android:text="2016-11-29"
+                        android:textColor="@color/black1"
+                        android:textSize="@dimen/TextSize_5" />
+
+                    <ImageView
+                        android:id="@+id/date_right"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/d10"
+                        android:layout_toRightOf="@id/tv_date"
+                        android:padding="@dimen/d4"
+                        android:src="@drawable/date_right" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal">
+
+                    <com.chaungying.qiandao.view.ProgressWheel
+                        android:id="@+id/manager_tong_ji_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:matProg_barWidth="@dimen/d6"
+                        app:matProg_circleRadius="135dp"
+                        app:matProg_linearProgress="true"
+                        app:matProg_progressIndeterminate="false"
+                        app:matProg_rimColor="#F4F8FF"
+                        app:matProg_rimWidth="@dimen/d6" />
+
+                    <TextView
+                        android:id="@+id/tv_percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="@dimen/d6"
+                        android:text="0/0"
+                        android:textColor="@color/black1"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_percentage"
+                        android:layout_centerHorizontal="true"
+                        android:text="出勤人数"
+                        android:textColor="@color/tijiao_title"
+                        android:textSize="@dimen/TextSize_5" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/d10">
+
+                    <LinearLayout
+                        android:id="@+id/normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/d10">
+
+                        <TextView
+                            android:id="@+id/tv_progress1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:ems="4"
+                            android:text="正常打卡"
+                            android:textColor="@color/vice_title"
+                            android:textSize="@dimen/TextSize_5" />
+
+                        <ProgressBar
+                            android:id="@+id/tong_ji_progressbar1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toRightOf="@id/tv_progress1"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/tong_ji_progress_style" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/leave_early"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/d10">
+
+                        <TextView
+                            android:id="@+id/tv_progress2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:ems="4"
+                            android:text="早退"
+                            android:textColor="@color/vice_title"
+                            android:textSize="@dimen/TextSize_5" />
+
+                        <ProgressBar
+                            android:id="@+id/tong_ji_progressbar2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toRightOf="@id/tv_progress2"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/tong_ji_progress_style2" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/late"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/d10">
+
+                        <TextView
+                            android:id="@+id/tv_progress3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:ems="4"
+                            android:text="迟到"
+                            android:textColor="@color/vice_title"
+                            android:textSize="@dimen/TextSize_5" />
+
+                        <ProgressBar
+                            android:id="@+id/tong_ji_progressbar3"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toRightOf="@id/tv_progress3"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/tong_ji_progress_style2" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/not_clock_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/d10">
+
+                        <TextView
+                            android:id="@+id/tv_progress4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:ems="4"
+                            android:text="还未打卡"
+                            android:textColor="@color/vice_title"
+                            android:textSize="@dimen/TextSize_5" />
+
+                        <ProgressBar
+                            android:id="@+id/tong_ji_progressbar4"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="60dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toRightOf="@id/tv_progress4"
+                            android:indeterminate="false"
+                            android:indeterminateOnly="false"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/tong_ji_progress_style2" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

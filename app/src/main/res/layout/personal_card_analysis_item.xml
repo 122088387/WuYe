@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/analysis_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/d10"
+        android:text="本月抢单量/部门排名"
+        android:textColor="@color/black1" />
+
+    <TextView
+        android:id="@+id/analysis_proportion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="12/1"
+        android:textColor="@color/black1"
+        android:textSize="@dimen/TextSize_17" />
+
+    <TextView
+        android:id="@+id/analysis_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/d10"
+        android:text="部门完整排名>"
+        android:textColor="@color/colorPrimary" />
+
+
+</RelativeLayout>

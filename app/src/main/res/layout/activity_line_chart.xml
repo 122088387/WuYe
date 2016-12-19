@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_dark"
+    tools:context="com.chaungying.ji_xiao.ui.PerRepairDispatchActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_title_bar" />
+
+        <LinearLayout
+            android:id="@+id/job_add_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/list_view_line">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/White"
+                    android:orientation="vertical"
+                    android:padding="@dimen/d10">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/fen_xi1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="报修数量分析"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/TextSize_4" />
+
+                        <TextView
+                            android:id="@+id/month_or_year"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/d20"
+                            android:text="月份"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/TextSize_6" />
+                    </RelativeLayout>
+
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart1"
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/d10"
+                    android:layout_weight="1"
+                    android:background="@color/White"
+                    android:orientation="vertical"
+                    android:padding="@dimen/d10">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/fen_xi2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="派工数量分析"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/TextSize_4" />
+
+                        <TextView
+                            android:id="@+id/month_or_year2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/d20"
+                            android:text="月份"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/TextSize_6" />
+                    </RelativeLayout>
+
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart2"
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/d10"
+                    android:layout_weight="1"
+                    android:background="@color/White"
+                    android:orientation="vertical"
+                    android:padding="@dimen/d10">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/fen_xi3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="维修数量分析"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/TextSize_4" />
+
+                        <TextView
+                            android:id="@+id/month_or_year3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/d20"
+                            android:text="月份"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/TextSize_6" />
+                    </RelativeLayout>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChart3"
+                        android:layout_width="300dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+</RelativeLayout>

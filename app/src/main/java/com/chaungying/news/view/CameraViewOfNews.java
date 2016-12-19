@@ -1,0 +1,339 @@
+package com.chaungying.news.view;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.GridView;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.chaungying.common.ui.PhotoActivity;
+import com.chaungying.wuye3.R;
+import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.ActionSheetDialog;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Administrator on 2016/6/16.
+ */
+public class CameraViewOfNews extends FrameLayout implements AdapterView.OnItemClickListener {
+    private GridView gridview;
+    private GridAdapter adapter;
+    private float dp;
+
+    private Context mContext;
+
+    private String upLoadeUrl;
+    private String filedName;
+
+    private TextView tv_paizhao;
+    /**
+     * 相机拍照
+     */
+    public static final int CAMERA_PIC = 0;
+    /**
+     * 相册选择图片
+     */
+    public static final int PHOTO_ALBUM_PIC = 0X0056;
+
+    private HorizontalScrollView selectimg_horizontalScrollView;
+
+    public ArrayList<Bitmap> bmp = new ArrayList<Bitmap>();
+
+    public CameraViewOfNews(Context context) {
+        this(context, null);
+    }
+
+    public CameraViewOfNews(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public CameraViewOfNews(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        mContext = context;
+        initView();
+    }
+
+    public void setTitle(String strTitle) {
+        tv_paizhao.setText(strTitle);
+    }
+
+    /**
+     * 初始化GridView控件
+     */
+    private void initView() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.camera_layout, this);
+        tv_paizhao = (TextView) view.findViewById(R.id.tv_paizhao);
+        selectimg_horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.selectimg_horizontalScrollView);
+        gridview = (GridView) view.findViewById(R.id.noScrollgridview);
+        dp = getResources().getDimension(R.dimen.dp);
+        gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        gridviewInit(new ArrayList<String>());
+
+    }
+
+    private List<String> myArr;
+
+    private List<String> filePathList;;
+
+    public void setFilePathList(List<String> filePathList) {
+        this.filePathList = filePathList;
+    }
+
+    //为了点击红点时删除对应的照片文件
+    Map<String, File> fileMap = new HashMap<String, File>();
+
+    public void setFileList(Map<String, File> fileMap) {
+        this.fileMap = fileMap;
+    }
+
+    public void gridviewInit(List<String> arr) {
+        if (arr.size() != 0) {
+            myArr = arr;
+        }
+        adapter = new GridAdapter(mContext);
+        adapter.setSelectedPosition(0);
+        int size = 0;
+        if (bmp.size() < 6) {
+            size = bmp.size() + 1;
+        } else {
+            size = bmp.size();
+        }
+        ViewGroup.LayoutParams params = gridview.getLayoutParams();
+        final int width = size * (int) (dp * 9.4f);
+        params.width = width;
+        gridview.setLayoutParams(params);
+        gridview.setColumnWidth((int) (dp * 9.4f));
+        gridview.setStretchMode(GridView.NO_STRETCH);
+        gridview.setNumColumns(size);
+        gridview.setAdapter(adapter);
+        gridview.setOnItemClickListener(this);
+
+        selectimg_horizontalScrollView.getViewTreeObserver()
+                .addOnPreDrawListener(// 绘制完毕
+                        new ViewTreeObserver.OnPreDrawListener() {
+                            public boolean onPreDraw() {
+                                selectimg_horizontalScrollView.scrollTo(width,
+                                        0);
+                                selectimg_horizontalScrollView
+                                        .getViewTreeObserver()
+                                        .removeOnPreDrawListener(this);
+                                return false;
+                            }
+                        });
+    }
+
+    /**
+     * 点击单张图片
+     *
+     * @param parent
+     * @param view
+     * @param arg2
+     * @param id
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int arg2, long id) {
+        if (arg2 == bmp.size()) {//点击加号的时候
+
+            final String[] stringItems = {"拍照", "相册"};
+            final ActionSheetDialog dialog = new ActionSheetDialog(mContext, stringItems, null);
+//            dialog.title("选择群消息提醒方式\r\n(该群在电脑的设置:接收消息并提醒)")//
+//                    .titleTextSize_SP(14.5f)//
+//                    .show();
+            dialog.isTitleShow(false).show();
+
+            dialog.setOnOperItemClickL(new OnOperItemClickL() {
+                @Override
+                public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 0) {
+                        //拍照
+//                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        startActivityForResult(intent, TAKE_PICTURE);
+                        Message msg = new Message();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("bmp", bmp);
+                        msg.setData(bundle);
+                        msg.what = CAMERA_PIC;
+                        handler.sendMessage(msg);
+
+                    } else if (position == 1) {
+//                        //相册
+//                        Intent local = new Intent();
+//                        local.setType("image/*");
+//                        local.setAction(Intent.ACTION_GET_CONTENT);
+//                        startActivityForResult(local, SELECT_PHONE);
+                        Message msg = new Message();
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelableArrayList("bmp", bmp);
+                        msg.setData(bundle);
+                        msg.what = PHOTO_ALBUM_PIC;
+                        handler.sendMessage(msg);
+                    }
+                    dialog.dismiss();
+                }
+            });
+
+
+
+
+//            HeadPopupWindowOfNews headPopupWindowOfNews = new HeadPopupWindowOfNews((Activity) mContext);
+//            headPopupWindowOfNews.setListener(new HeadPopupWindowOfNews.HeadPopupListener() {
+//                @Override
+//                public void listener(int tag) {
+//                    if (tag == 1) {//调相机
+//                        Message msg = new Message();
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelableArrayList("bmp", bmp);
+//                        msg.setData(bundle);
+//                        msg.what = CAMERA_PIC;
+//                        handler.sendMessage(msg);
+//                    } else if (tag == 2) {//调相册
+//                        Message msg = new Message();
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelableArrayList("bmp", bmp);
+//                        msg.setData(bundle);
+//                        msg.what = PHOTO_ALBUM_PIC;
+//                        handler.sendMessage(msg);
+//                    }
+//                }
+//            });
+//            //设置layout在PopupWindow中显示的位置
+//            headPopupWindowOfNews.showAtLocation(((Activity)mContext).findViewById(R.id.main),
+//                    Gravity.FILL | Gravity.CENTER_HORIZONTAL, 0, 0);
+        } else {//点击图片的时候
+            Intent intent = new Intent(mContext, PhotoActivity.class);
+            intent.putExtra("ID", arg2);
+            mContext.startActivity(intent);
+        }
+
+    }
+
+    /**
+     * 相片布局 适配器
+     */
+    private class GridAdapter extends BaseAdapter {
+        private LayoutInflater listContainer;
+        private int selectedPosition = -1;
+        private boolean shape;
+
+        public boolean isShape() {
+            return shape;
+        }
+
+        public void setShape(boolean shape) {
+            this.shape = shape;
+        }
+
+        public class ViewHolder {
+            public ImageView image;
+            public Button bt;
+        }
+
+        public GridAdapter(Context context) {
+            listContainer = LayoutInflater.from(context);
+        }
+
+        public int getCount() {
+            if (bmp.size() < 6) {
+                return bmp.size() + 1;
+            } else {
+                return bmp.size();
+            }
+        }
+
+        public Object getItem(int arg0) {
+
+            return null;
+        }
+
+        public long getItemId(int arg0) {
+
+            return 0;
+        }
+
+        public void setSelectedPosition(int position) {
+            selectedPosition = position;
+        }
+
+        public int getSelectedPosition() {
+            return selectedPosition;
+        }
+
+        /**
+         * ListView Item设置
+         */
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final int index = position;
+            // 自定义视图
+            ViewHolder holder = null;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                // 获取list_item布局文件的视图
+                convertView = listContainer.inflate(R.layout.item_published_grida, null);
+                // 获取控件对象
+                holder.image = (ImageView) convertView.findViewById(R.id.item_grida_image);
+                holder.bt = (Button) convertView.findViewById(R.id.item_grida_bt);
+                // 设置控件集到convertView
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            if (position == bmp.size()) {
+                holder.image.setImageBitmap(BitmapFactory.decodeResource(
+                        getResources(), R.drawable.icon_addpic_unfocused));
+                holder.bt.setVisibility(View.GONE);
+                if (position == 6) {
+                    holder.image.setVisibility(View.GONE);
+                }
+            } else {
+                holder.image.setImageBitmap(bmp.get(position));
+                //点击照片上的删除红点时
+                holder.bt.setOnClickListener(new OnClickListener() {
+
+                    public void onClick(View v) {
+                        PhotoActivity.bitmap.remove(index);
+                        bmp.get(index).recycle();
+                        bmp.remove(index);
+                        if (myArr != null && myArr.size() != 0) {
+                            myArr.remove(position);
+                            fileMap.remove(filePathList.get(position));
+                            gridviewInit(myArr);
+                        }
+                    }
+                });
+            }
+
+            return convertView;
+        }
+    }
+
+    private Handler handler;
+
+    public void setHandler(Handler handler) {
+        this.handler = handler;
+    }
+
+
+}

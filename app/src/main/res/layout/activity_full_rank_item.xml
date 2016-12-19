@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/d10">
+
+
+    <TextView
+        android:id="@+id/full_rank_num_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/black1"
+        android:textSize="@dimen/TextSize_4" />
+
+    <TextView
+        android:id="@+id/full_rank_name_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="测试"
+        android:textSize="@dimen/TextSize_4" />
+
+    <TextView
+        android:id="@+id/full_rank_counts_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="center"
+        android:text="2"
+        android:textSize="@dimen/TextSize_4" />
+</LinearLayout>

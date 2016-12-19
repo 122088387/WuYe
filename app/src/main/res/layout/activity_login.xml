@@ -1,0 +1,173 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/login_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f8f8f8"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/login_image_logo"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo"
+        android:visibility="invisible" />
+
+    <FrameLayout
+        android:id="@+id/login_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/d40"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="90.5dp"
+            android:background="@color/White"
+            android:elevation="2dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/login_img"
+                    android:layout_width="@dimen/d20"
+                    android:layout_height="@dimen/d20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/d10"
+                    android:src="@drawable/login_image" />
+
+                <EditText
+                    android:id="@+id/login_et_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/login_img"
+                    android:background="@null"
+                    android:hint="用户名"
+                    android:paddingLeft="15dp"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/black1"
+                    android:textColorHint="@color/color_999999" />
+
+                <!-- 清除键 -->
+                <ImageView
+                    android:id="@+id/login_username_clear"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/d16"
+                    android:src="@drawable/icon_clear"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/d10"
+                android:layout_marginRight="@dimen/d10"
+                android:background="@color/eeeeee" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/password_img"
+                    android:layout_width="@dimen/d20"
+                    android:layout_height="@dimen/d20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/d10"
+                    android:src="@drawable/password_image" />
+
+                <EditText
+                    android:id="@+id/login_et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/password_img"
+                    android:background="@null"
+                    android:hint="密码"
+                    android:inputType="textPassword"
+                    android:paddingLeft="15dp"
+                    android:text=""
+                    android:textColor="@color/black1"
+                    android:textColorHint="@color/color_999999" />
+
+                <!-- 清除键 -->
+                <ImageView
+                    android:id="@+id/login_password_clear"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/d16"
+                    android:src="@drawable/icon_clear"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/login_btn_go"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_below="@id/login_ll"
+        android:layout_marginLeft="@dimen/d16"
+        android:layout_marginRight="@dimen/d16"
+        android:layout_marginTop="@dimen/d25"
+        android:background="@drawable/btn_radius_accent"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/TextSize_5"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/use_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/login_btn_go"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/d10"
+        android:padding="@dimen/d10"
+        android:text="使用教程"
+        android:visibility="invisible"
+        android:textColor="@color/FF00C3FF"
+        android:textSize="@dimen/TextSize_4" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|bottom">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="@dimen/d10">
+
+            <ImageView
+                android:layout_width="@dimen/d35"
+                android:layout_height="@dimen/d35"
+                android:src="@drawable/icon_tran" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="瑞达物业"
+                android:layout_marginLeft="@dimen/d6"
+                android:textColor="@color/black1"
+                android:textSize="@dimen/TextSize_15" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
