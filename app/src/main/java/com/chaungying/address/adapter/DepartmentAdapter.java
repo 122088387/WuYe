@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author 王晓赛 or 2016/7/29 ..
+ * @author 王晓赛 or 2016/7/29 ....
  */
 public class DepartmentAdapter extends BaseAdapter {
 
