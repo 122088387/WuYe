@@ -3,12 +3,20 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CollapseCalendarView/CollapseCalendarView.iml" filepath="$PROJECT_DIR$/CollapseCalendarView/CollapseCalendarView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CollapseCalendarView/CollapseCalendarView.iml" filepath="$PROJECT_DIR$/CollapseCalendarView/CollapseCalendarView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" filepath="$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" filepath="$PROJECT_DIR$/FlycoDialog_Lib/FlycoDialog_Lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/ToggleButtonLib/ToggleButtonLib.iml" filepath="$PROJECT_DIR$/ToggleButtonLib/ToggleButtonLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ToggleButtonLib/ToggleButtonLib.iml" filepath="$PROJECT_DIR$/ToggleButtonLib/ToggleButtonLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WuYe.iml" filepath="$PROJECT_DIR$/WuYe.iml" />
       <module fileurl="file://$PROJECT_DIR$/WuYe3.iml" filepath="$PROJECT_DIR$/WuYe3.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/easypermissions/easypermissions.iml" filepath="$PROJECT_DIR$/easypermissions/easypermissions.iml" />
       <module fileurl="file://$PROJECT_DIR$/easypermissions/easypermissions.iml" filepath="$PROJECT_DIR$/easypermissions/easypermissions.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib-zxing/lib-zxing.iml" filepath="$PROJECT_DIR$/lib-zxing/lib-zxing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib-zxing/lib-zxing.iml" filepath="$PROJECT_DIR$/lib-zxing/lib-zxing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/netSocket/netSocket.iml" filepath="$PROJECT_DIR$/netSocket/netSocket.iml" />
       <module fileurl="file://$PROJECT_DIR$/netSocket/netSocket.iml" filepath="$PROJECT_DIR$/netSocket/netSocket.iml" />
     </modules>
   </component>
