@@ -1,5 +1,6 @@
 package com.chaungying.gongzuotai;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.chaungying.common.constant.Const;
 import com.chaungying.common.constant.ExtraTag;
@@ -31,9 +33,14 @@ import com.chaungying.gongzuotai.dbbean.UserIdTimeBean;
 import com.chaungying.gongzuotai.dbbean.UserIdTimeRepairBean;
 import com.chaungying.gongzuotai.ui.MsgListActivity;
 import com.chaungying.gongzuotai.ui.ShortMenuActivity;
+import com.chaungying.gongzuotai.ui.ShowQr_codeActivity;
 import com.chaungying.modues.main.bean.WindowBtnBean;
 import com.chaungying.wuye3.R;
+import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.ActionSheetDialog;
 import com.google.gson.Gson;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.litepal.crud.DataSupport;
 import org.xutils.common.Callback;
@@ -707,13 +714,83 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
 
     }
 
+    //工作台快捷入口 交接班返回码
+    private static final int SHORT_ACTIVITY_REQUEST_CODE = 0X0001;
+    //扫描二维码返回码
+    private static final int SCANN_REQUEST_CODE = 0X0002;
+
+    /**
+     * 快速入口 按钮
+     *
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         Intent intent = new Intent(getActivity(), ShortMenuActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("list", beanList);
         intent.putExtras(bundle);
-        startActivity(intent);
+        startActivityForResult(intent, SHORT_ACTIVITY_REQUEST_CODE);
         getActivity().overridePendingTransition(R.anim.short_menu_activity_in, R.anim.short_menu_activity_out);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case SHORT_ACTIVITY_REQUEST_CODE:
+                if (resultCode == Activity.RESULT_OK) {
+                    showDialog();
+                }
+                break;
+            case SCANN_REQUEST_CODE:
+                if (data != null) {
+                    dealScanResult(data);
+                }
+                break;
+        }
+    }
+
+    /**
+     * 处理二维码扫描结果
+     */
+    private void dealScanResult(Intent data) {
+        if (null != data) {
+            Bundle bundle = data.getExtras();
+            if (bundle == null) {
+                return;
+            }
+            if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                String result = bundle.getString(CodeUtils.RESULT_STRING);
+                Toast.makeText(getContext(), "解析结果:" + result, Toast.LENGTH_LONG).show();
+            } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                Toast.makeText(getContext(), "解析二维码失败", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
+    private void showDialog() {
+        final String[] stringItems = {"接班", "交班"};
+        final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
+//            dialog.title("选择群消息提醒方式\r\n(该群在电脑的设置:接收消息并提醒)")//
+//                    .titleTextSize_SP(14.5f)//
+//                    .show();
+        dialog.isTitleShow(false).show();
+
+        dialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {//接班 扫描二维码
+                    Intent intent = new Intent(getContext(), CaptureActivity.class);
+                    startActivityForResult(intent, SCANN_REQUEST_CODE);
+
+                } else if (position == 1) {//交班 出示二维码
+                    Intent intent = new Intent(getContext(), ShowQr_codeActivity.class);
+                    startActivity(intent);
+                }
+                dialog.dismiss();
+            }
+        });
     }
 }

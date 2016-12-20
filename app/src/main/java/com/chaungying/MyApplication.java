@@ -10,6 +10,7 @@ import com.chaungying.common.utils.L;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.orhanobut.logger.Logger;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vmeet.netsocket.bean.SocketObj;
 import com.vmeet.netsocket.data.Set;
 
@@ -75,6 +76,8 @@ public class MyApplication extends Application {
         editor = sharedPreferences.edit();
 
         Logger.init("WuYe3");
+        //二维码扫描初始化
+        ZXingLibrary.initDisplayOpinion(this);
     }
 
     /**

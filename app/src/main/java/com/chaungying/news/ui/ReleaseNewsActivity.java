@@ -11,6 +11,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,7 +43,6 @@ import java.util.List;
 import java.util.Map;
 
 import static com.chaungying.common.utils.file.Bimp.saveBitmap;
-import static com.chaungying.wuye3.R.string.release_news;
 
 /**
  * 创建者：  王晓赛
@@ -55,6 +55,9 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
 
     @ViewInject(R.id.release_news_title)
     private EditText title;
+
+    @ViewInject(R.id.radio_group)
+    private RadioGroup radio_group;
 
     @ViewInject(R.id.release_news_content)
     private EditText content;
@@ -76,6 +79,8 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
     private String ids = "";
     private String names = "";
 
+    private int activityType = 0;//提交的类型
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,10 +89,23 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
-        setActionBarText(release_news, R.drawable.nav_return, R.string.tijiao);
+        setActionBarText(R.string.release_news_notice, R.drawable.nav_return, R.string.tijiao);
         cameraViewVar.setHandler(handler);
         rl_select_person.setOnClickListener(this);
         title_menu.setOnClickListener(this);
+        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.select_news:
+                        activityType = 0;
+                        break;
+                    case R.id.select_notice:
+                        activityType = 1;
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -238,9 +256,11 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
                 break;
         }
     }
+
     //上传的文件map
     Map<String, File> files1 = new HashMap<String, File>();
     public List<String> filePathList = new ArrayList<String>();
+
     /**
      * 照片图片的上传数据设置
      *

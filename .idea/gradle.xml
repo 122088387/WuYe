@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/ToggleButtonLib" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/easypermissions" />
+            <option value="$PROJECT_DIR$/lib-zxing" />
             <option value="$PROJECT_DIR$/netSocket" />
           </set>
         </option>

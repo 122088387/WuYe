@@ -69,7 +69,7 @@
                     android:padding="@dimen/d2"
                     android:text="来源：未知"
                     android:textColor="@color/gray"
-                    android:textSize="@dimen/TextSize_7"/>
+                    android:textSize="@dimen/TextSize_5"/>
 
                 <TextView
                     android:id="@+id/item_newsList_comments"
@@ -80,7 +80,7 @@
                     android:text="未读量：4/5 >"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/TextSize_7"/>
+                    android:textSize="@dimen/TextSize_5"/>
 
             </RelativeLayout>
 

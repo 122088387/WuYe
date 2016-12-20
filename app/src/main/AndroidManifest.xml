@@ -189,8 +189,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.chaungying.news.ui.ReleaseNewsActivity"
-            android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.chaungying.news.ui.SelectPersonalActivity"
             android:screenOrientation="portrait" />
@@ -349,9 +349,14 @@
             android:name="com.chaungying.round_malls1.ui.MyShopConsumpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Translucent" />
-        <!--消费-->
+        <!--快捷入口-->
         <activity
             android:name="com.chaungying.gongzuotai.ui.ShortMenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Translucent" />
+        <!--显示二维码界面-->
+        <activity
+            android:name="com.chaungying.gongzuotai.ui.ShowQr_codeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Translucent" />
 

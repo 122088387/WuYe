@@ -97,6 +97,12 @@ public class ShortMenuActivity extends BaseActivity implements AdapterView.OnIte
                 intent4.putExtra("title", title);
                 startActivity(intent4);
                 break;
+            case 167:
+                Intent intent5 = new Intent();
+                intent5.putExtra("appId", 167);
+                setResult(RESULT_OK, intent5);
+                finish();
+                break;
         }
         finish();
         overridePendingTransition(R.anim.short_menu_activity_in, R.anim.short_menu_activity_out);

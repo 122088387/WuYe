@@ -55,6 +55,7 @@ dependencies {
     compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile project(':netSocket')//Socket连接
     compile project(':FlycoDialog_Lib')//Dialog 和底部弹出框
+    compile project(':lib-zxing')//二维码扫描与生成
     //开启手机相机权限
 //    compile 'com.zhy:mpermission-api:1.0.0'
     compile 'pub.devrel:easypermissions:0.1.9'

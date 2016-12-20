@@ -52,7 +52,7 @@
                     android:text="来源：未知"
                     android:textColor="@color/gray"
                     android:padding="@dimen/d2"
-                    android:textSize="@dimen/TextSize_6" />
+                    android:textSize="@dimen/TextSize_5" />
 
                 <TextView
                     android:id="@+id/item_noticeList_comments"
@@ -63,7 +63,7 @@
                     android:layout_alignParentRight="true"
                     android:text="未读量：4/5 >"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/TextSize_6"
+                    android:textSize="@dimen/TextSize_5"
                     android:visibility="visible" />
             </RelativeLayout>
 
