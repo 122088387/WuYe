@@ -2,11 +2,11 @@ package com.chaungying.gongzuotai.ui;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.chaungying.BaseActivity;
+import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.wuye3.R;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -37,12 +37,9 @@ public class ShowQr_codeActivity extends BaseActivity {
     }
 
     private void initQrView() {
-        String textContent = "服务器请求";
-        if (TextUtils.isEmpty(textContent)) {
-            Toast.makeText(this, "您的输入为空!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        String textContent = "user_id:" + SPUtils.get(this, Const.SPDate.ID, -1);
         Bitmap mBitmap = CodeUtils.createImage(textContent, 400, 400, null);
         qrImageView.setImageBitmap(mBitmap);
+
     }
 }

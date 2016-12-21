@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.chaungying.common.constant.Const;
 import com.chaungying.common.constant.ExtraTag;
 import com.chaungying.common.utils.SPUtils;
+import com.chaungying.common.utils.T;
 import com.chaungying.common.utils.date.DateUtil;
 import com.chaungying.common.utils.file.MusicPlayer;
 import com.chaungying.common.utils.file.VibrationPlayer;
@@ -34,6 +35,8 @@ import com.chaungying.gongzuotai.dbbean.UserIdTimeRepairBean;
 import com.chaungying.gongzuotai.ui.MsgListActivity;
 import com.chaungying.gongzuotai.ui.ShortMenuActivity;
 import com.chaungying.gongzuotai.ui.ShowQr_codeActivity;
+import com.chaungying.metting.view.ProgressUtil;
+import com.chaungying.modues.login.bean.HttpRequestBase;
 import com.chaungying.modues.main.bean.WindowBtnBean;
 import com.chaungying.wuye3.R;
 import com.flyco.dialog.listener.OnOperItemClickL;
@@ -762,16 +765,48 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
             }
             if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                 String result = bundle.getString(CodeUtils.RESULT_STRING);
-                Toast.makeText(getContext(), "解析结果:" + result, Toast.LENGTH_LONG).show();
+                if (result != null && result.startsWith("user_id:")) {
+                    ProgressUtil.show(getContext(), "交接中...");
+                    RequestParams params = new RequestParams(Const.WuYe.URL_USER_MEMBER_CONNECT);
+                    params.addParameter("tourerId", SPUtils.get(getContext(), Const.SPDate.ID, -1));//交班人id
+                    params.addParameter("successorId", result.substring(result.indexOf(":") + 1));//接班人id
+                    x.http().post(params, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            HttpRequestBase base = new Gson().fromJson(result, HttpRequestBase.class);
+                            if (base.respCode == 1001) {
+                                T.showShort(getContext(), "交接班成功");
+                            } else {
+                                T.showShort(getContext(), base.respMsg);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+                            ProgressUtil.close();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "扫描的二维码不合法", Toast.LENGTH_LONG).show();
+                }
             } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                 Toast.makeText(getContext(), "解析二维码失败", Toast.LENGTH_LONG).show();
             }
-
         }
     }
 
     private void showDialog() {
-        final String[] stringItems = {"接班", "交班"};
+        final String[] stringItems = {"交班", "接班"};
         final ActionSheetDialog dialog = new ActionSheetDialog(getContext(), stringItems, null);
 //            dialog.title("选择群消息提醒方式\r\n(该群在电脑的设置:接收消息并提醒)")//
 //                    .titleTextSize_SP(14.5f)//
@@ -781,13 +816,12 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
         dialog.setOnOperItemClickL(new OnOperItemClickL() {
             @Override
             public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {//接班 扫描二维码
-                    Intent intent = new Intent(getContext(), CaptureActivity.class);
-                    startActivityForResult(intent, SCANN_REQUEST_CODE);
-
-                } else if (position == 1) {//交班 出示二维码
+                if (position == 0) {//交班 出示二维码
                     Intent intent = new Intent(getContext(), ShowQr_codeActivity.class);
                     startActivity(intent);
+                } else if (position == 1) {//接班 扫描二维码
+                    Intent intent = new Intent(getContext(), CaptureActivity.class);
+                    startActivityForResult(intent, SCANN_REQUEST_CODE);
                 }
                 dialog.dismiss();
             }

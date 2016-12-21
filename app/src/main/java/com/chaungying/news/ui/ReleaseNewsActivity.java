@@ -299,7 +299,7 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
             } else {
                 params.put("values", ids);//选中的id数组
             }
-            params.put("activityType", "1");// 0新闻 1公告
+            params.put("activityType", activityType + "");// 0新闻 1公告
             ProgressUtil.show(this, "提交中...");
             new AsyncTaskForUpLoadFiles(
                     Const.WuYe.URL_PUSH_ACTIVITY_BY_PHONE
@@ -330,7 +330,7 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
             } else {
                 params.addParameter("values", ids);//选中的id数组
             }
-            params.addParameter("activityType", "1");// 0新闻 1公告
+            params.addParameter("activityType", activityType);// 0新闻 1公告
 
             ProgressUtil.show(this, "提交中...");
             x.http().post(params, new Callback.CommonCallback<String>() {

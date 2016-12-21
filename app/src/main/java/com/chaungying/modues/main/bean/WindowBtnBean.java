@@ -67,9 +67,9 @@ public class WindowBtnBean implements Serializable {
 
     public static class ShortcutsBean implements Serializable {
         private int isEnable;
-        private int joinAppId;
+        private int joinAppId; //joinAppId 关联之前的那个AppId
         private String icoUrl;
-        private int applicationId;
+        private int applicationId;//自身的AppId
         private String code;
         private int type;
         private Object url;

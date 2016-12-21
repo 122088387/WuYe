@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.chaungying.wuye3">
 
+    <uses-permission android:name="android.permission.CAMERA" />
     <!--百度地图网络定位需要的权限-->
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
