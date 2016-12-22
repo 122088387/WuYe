@@ -90,7 +90,6 @@ public class ActivityParkNavigation extends BaseActivity {
         initLocation();
 //        开启定位
         mLocationClient.start();
-
         //添加覆盖物
         getDatas();
     }

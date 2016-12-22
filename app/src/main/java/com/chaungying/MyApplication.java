@@ -1,9 +1,9 @@
 package com.chaungying;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
+import android.support.multidex.MultiDexApplication;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.chaungying.common.utils.L;
@@ -24,7 +24,7 @@ import cn.jpush.android.api.JPushInterface;
 /**
  * @anthor 王晓赛 or 2016/6/22
  */
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     public static MyApplication application;
 
     public static MyApplication getApplication() {
