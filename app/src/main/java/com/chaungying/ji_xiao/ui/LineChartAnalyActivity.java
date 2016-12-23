@@ -147,7 +147,6 @@ public class LineChartAnalyActivity extends BaseActivity implements OnChartValue
         mLineChart.setExtraOffsets(5, 10, 5, 5);
         mLineChart.setOnChartValueSelectedListener(this);
         mLineChart.setDrawGridBackground(false);
-
         // enable touch gestures
         mLineChart.setTouchEnabled(true);
 
@@ -161,9 +160,14 @@ public class LineChartAnalyActivity extends BaseActivity implements OnChartValue
         mLineChart.setPinchZoom(true);
 
         YAxis leftAxis = mLineChart.getAxisLeft();
-        leftAxis.enableGridDashedLine(10f, 10f, 0f);
+        leftAxis.enableGridDashedLine(10f, 0f, 0f);
         leftAxis.setDrawZeroLine(false);
         leftAxis.setDrawGridLines(true);
+        //将左边的Y轴隐藏掉
+        leftAxis.setDrawAxisLine(false);
+        leftAxis.setTextColor(getResources().getColor(R.color.color_999999));
+        leftAxis.setGridColor(getResources().getColor(R.color.eeeeee));
+
 
         YAxis rightAxis = mLineChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
@@ -192,6 +196,8 @@ public class LineChartAnalyActivity extends BaseActivity implements OnChartValue
         xAxis.setTypeface(CharBase.mTfLight);
         xAxis.setAxisMaxValue(itemcount + 1);
         xAxis.setDrawGridLines(false);
+        xAxis.setTextColor(getResources().getColor(R.color.color_999999));
+        xAxis.setAxisLineColor(getResources().getColor(R.color.eeeeee));
         xAxis.setGranularity(1f);
         boolean monthOrYear;
         if (title.equals("1")) {
@@ -270,14 +276,16 @@ public class LineChartAnalyActivity extends BaseActivity implements OnChartValue
         }
 
         LineDataSet dataSet = new LineDataSet(yVals, title);
-
+        //设置画出折线的属性
         dataSet.setColors(new int[]{getResources().getColor(R.color.colorPrimary)});
         dataSet.setCircleColor(getResources().getColor(R.color.colorPrimary));
         dataSet.setLineWidth(1f);
-        dataSet.setCircleRadius(3f);
-        dataSet.setDrawCircleHole(true);
+        dataSet.setCircleRadius(2f);
+        dataSet.setDrawCircleHole(false);
         dataSet.setValueTextSize(9f);
-        dataSet.setDrawFilled(true);
+        dataSet.setValueTextColor(getResources().getColor(R.color.color_999999));
+        //设置是否填充
+        dataSet.setDrawFilled(false);
 
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
@@ -286,7 +294,7 @@ public class LineChartAnalyActivity extends BaseActivity implements OnChartValue
         LineData data = new LineData(dataSets);
         mLineChart.setData(data);
 
-        mLineChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        mLineChart.animateY(100, Easing.EasingOption.EaseInOutQuad);
 
     }
 

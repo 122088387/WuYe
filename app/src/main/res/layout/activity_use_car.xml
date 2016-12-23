@@ -10,6 +10,7 @@
     <include layout="@layout/view_top_week_title"/>
 
     <com.chaungying.calendar.views.ScrollLayout
+        android:id="@+id/scroll_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/list_view_line">

@@ -1,5 +1,6 @@
 package com.chaungying.site_repairs.view;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -101,6 +102,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
 import static com.chaungying.common.ui.JiLianEditActivity.CASE_RESULT;
 import static com.chaungying.common.utils.SPUtils.get;
 
@@ -108,7 +113,7 @@ import static com.chaungying.common.utils.SPUtils.get;
  * @author 王晓赛 or 2016/6/27
  */
 @ContentView(R.layout.fragment_repairs)
-public class RepairsFragment extends BaseFragment implements View.OnClickListener {
+public class RepairsFragment extends BaseFragment implements View.OnClickListener ,EasyPermissions.PermissionCallbacks{
 
     private Activity mContext;
 
@@ -156,7 +161,8 @@ public class RepairsFragment extends BaseFragment implements View.OnClickListene
                     //打开相机，并处理图片
                     // 利用系统自带的相机应用:拍照
                     bmp = msg.getData().getParcelableArrayList("bmp");
-                    photo();
+//                    photo();
+                    methodRequiresTwoPermission();
                     break;
                 case CameraViewOfNews.PHOTO_ALBUM_PIC:
                     bmp = msg.getData().getParcelableArrayList("bmp");
@@ -1436,6 +1442,73 @@ public class RepairsFragment extends BaseFragment implements View.OnClickListene
 //            }
 //        });
     }
+
+    /**
+     * 请求CAMERA权限码
+     */
+    public static final int REQUEST_CAMERA_PERM = 101;
+
+
+    @AfterPermissionGranted(REQUEST_CAMERA_PERM)
+    private void methodRequiresTwoPermission() {
+        String[] perms = {Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(getContext(), perms)) {
+            // Have permission, do the thing!
+            photo();
+        } else {
+            // Do not have permissions, request them now  // Ask for one permission
+            EasyPermissions.requestPermissions(this, "需要请求camera权限",
+                    REQUEST_CAMERA_PERM, perms);
+        }
+    }
+
+
+    /**
+     * EsayPermissions接管权限处理逻辑
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions  结果转发给EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    /**
+     * 授予权限
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+//        Toast.makeText(getContext(), "执行onPermissionsGranted()...", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 拒绝权限
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+//        Toast.makeText(getContext(), "执行onPermissionsDenied()...", Toast.LENGTH_SHORT).show();
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this, "拍照需要在设置页面找到“权限管理->相机->允许”进行操作 ，请点击“确定”进入设置页面去操作。")
+                    .setTitle("权限申请")
+                    .setPositiveButton("确定")
+                    .setNegativeButton("取消", null /* click listener */)
+                    .setRequestCode(REQUEST_CAMERA_PERM)
+                    .build()
+                    .show();
+        }
+    }
+
 
     /**
      * 退出该界面是需要的操作

@@ -48,7 +48,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="报修数量分析"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_centerHorizontal="true"
                             android:textSize="@dimen/TextSize_4" />
 
                         <TextView
@@ -57,17 +58,19 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
+                            android:layout_below="@id/fen_xi1"
                             android:layout_marginRight="@dimen/d20"
                             android:text="月份"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/color_999999"
                             android:textSize="@dimen/TextSize_6" />
                     </RelativeLayout>
 
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChart1"
-                        android:layout_width="300dp"
-                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="@dimen/d10"
                         android:layout_gravity="center_horizontal" />
 
                 </LinearLayout>
@@ -90,7 +93,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="派工数量分析"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_centerHorizontal="true"
                             android:textSize="@dimen/TextSize_4" />
 
                         <TextView
@@ -100,16 +104,18 @@
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/d20"
+                            android:layout_below="@id/fen_xi2"
                             android:text="月份"
-                            android:textColor="@color/colorPrimary"
+                            android:textColor="@color/color_999999"
                             android:textSize="@dimen/TextSize_6" />
                     </RelativeLayout>
 
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChart2"
-                        android:layout_width="300dp"
-                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="@dimen/d10"
                         android:layout_gravity="center_horizontal" />
 
                 </LinearLayout>
@@ -132,7 +138,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="维修数量分析"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorPrimary"
+                            android:layout_centerHorizontal="true"
                             android:textSize="@dimen/TextSize_4" />
 
                         <TextView
@@ -143,14 +150,16 @@
                             android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/d20"
                             android:text="月份"
-                            android:textColor="@color/colorPrimary"
+                            android:layout_below="@id/fen_xi3"
+                            android:textColor="@color/color_999999"
                             android:textSize="@dimen/TextSize_6" />
                     </RelativeLayout>
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:id="@+id/lineChart3"
-                        android:layout_width="300dp"
-                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_margin="@dimen/d10"
                         android:layout_gravity="center_horizontal" />
 
                 </LinearLayout>

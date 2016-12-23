@@ -1,5 +1,6 @@
 package com.chaungying.gongzuotai;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -57,13 +58,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
 /**
  * 工作台碎片
  *
  * @author 种耀淮 在2016年07月09日12:52创建
  */
 @ContentView(R.layout.fragment_work)
-public class WorkFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class WorkFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener, EasyPermissions.PermissionCallbacks {
 
     // 在主页面的位置
     public static final int NUMBER = 0;
@@ -751,6 +756,12 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
                     dealScanResult(data);
                 }
                 break;
+            case REQUEST_CAMERA_PERM:
+                // Do something after user returned from app settings screen, like showing a Toast.
+//                Toast.makeText(getContext(), "", Toast.LENGTH_SHORT)
+//                        .show();
+                //从设置界面获取到相机权限返回后
+                break;
         }
     }
 
@@ -820,11 +831,75 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
                     Intent intent = new Intent(getContext(), ShowQr_codeActivity.class);
                     startActivity(intent);
                 } else if (position == 1) {//接班 扫描二维码
-                    Intent intent = new Intent(getContext(), CaptureActivity.class);
-                    startActivityForResult(intent, SCANN_REQUEST_CODE);
+                    methodRequiresTwoPermission();
                 }
                 dialog.dismiss();
             }
         });
+    }
+
+    @AfterPermissionGranted(REQUEST_CAMERA_PERM)
+    private void methodRequiresTwoPermission() {
+        String[] perms = {Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(getContext(), perms)) {
+            // Have permission, do the thing!
+            Intent intent = new Intent(getContext(), CaptureActivity.class);
+            startActivityForResult(intent, SCANN_REQUEST_CODE);
+        } else {
+            // Do not have permissions, request them now  // Ask for one permission
+            EasyPermissions.requestPermissions(this, "需要请求camera权限",
+                    REQUEST_CAMERA_PERM, perms);
+        }
+    }
+
+    /**
+     * 请求CAMERA权限码
+     */
+    public static final int REQUEST_CAMERA_PERM = 101;
+
+    /**
+     * EsayPermissions接管权限处理逻辑
+     *
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions  结果转发给EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    /**
+     * 授予权限
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+//        Toast.makeText(getContext(), "执行onPermissionsGranted()...", Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * 拒绝权限
+     *
+     * @param requestCode
+     * @param perms
+     */
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+//        Toast.makeText(getContext(), "执行onPermissionsDenied()...", Toast.LENGTH_SHORT).show();
+        if (EasyPermissions.somePermissionPermanentlyDenied(getActivity(), perms)) {
+            new AppSettingsDialog.Builder(this, "拍照需要在设置页面找到“权限管理->相机->允许”进行操作 ，请点击“确定”进入设置页面去操作。")
+                    .setTitle("权限申请")
+                    .setPositiveButton("确定")
+                    .setNegativeButton("取消", null /* click listener */)
+                    .setRequestCode(REQUEST_CAMERA_PERM)
+                    .build()
+                    .show();
+        }
     }
 }

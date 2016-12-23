@@ -538,7 +538,7 @@ public class SignInActivity extends BaseActivity {
     private void ask_for_leave(View view) {
         Intent intent = new Intent(this, ZiXunJieDaConfigActivity.class);
         intent.putExtra("isShort", true);
-        intent.putExtra("appId",164);//请假、补假的填报界面
+        intent.putExtra("appId", 164);//请假、补假的填报界面
         intent.putExtra("title", "请假/补假");
         startActivity(intent);
     }

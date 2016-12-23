@@ -2,6 +2,8 @@ package com.chaungying.metting.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import com.chaungying.BaseActivity;
 import com.chaungying.calendar.cons.DPMode;
 import com.chaungying.calendar.views.MonthView;
+import com.chaungying.calendar.views.ScrollLayout;
 import com.chaungying.calendar.views.WeekView;
 import com.chaungying.common.constant.Const;
 import com.chaungying.common.utils.T;
@@ -53,6 +56,9 @@ public class MettingRoomActivity extends BaseActivity implements AdapterView.OnI
 
     @ViewInject(R.id.date_date)
     private TextView dateTv;
+
+    @ViewInject(R.id.scroll_layout)
+    private ScrollLayout scroll_layout;
 
     // 月历控件
     @ViewInject(R.id.month_calendar)
@@ -208,6 +214,12 @@ public class MettingRoomActivity extends BaseActivity implements AdapterView.OnI
                 } else {
                     T.showShort(MettingRoomActivity.this, "没有数据");
                 }
+                MotionEvent event = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 200, monthView.getY()+monthView.getHeight(), 0);
+                scroll_layout.dispatchTouchEvent(event);
+                MotionEvent event1 = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, 200, monthView.getY()+monthView.getHeight()-100, 0);
+                scroll_layout.dispatchTouchEvent(event1);
+                MotionEvent event2 = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, 200, monthView.getY(), 0);
+                scroll_layout.dispatchTouchEvent(event2);
             }
 
             @Override
