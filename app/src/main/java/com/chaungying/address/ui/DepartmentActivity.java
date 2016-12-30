@@ -8,12 +8,17 @@ import android.widget.ListView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.address.adapter.DepartmentAdapter;
+import com.chaungying.address.bean.DataBean;
 import com.chaungying.address.bean.GardenContactBean;
+import com.chaungying.address.bean.PersonListBean;
 import com.chaungying.common.constant.Const;
 import com.chaungying.common.utils.SPUtils;
+import com.chaungying.common.utils.T;
+import com.chaungying.metting.view.ProgressUtil;
 import com.chaungying.wuye3.R;
 import com.google.gson.Gson;
 
+import org.litepal.crud.DataSupport;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -30,33 +35,29 @@ import java.util.List;
 public class DepartmentActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
 
-    String requestUrl = "";
-
     @ViewInject(R.id.lv_contact)
     ListView listView;
 
     DepartmentAdapter departmentAdapter;
 
-    List<GardenContactBean.DataBean> list = new ArrayList<GardenContactBean.DataBean>();
+    private int id;//第一个界面传过来的id
 
     private GardenContactBean gardenContactBean;
-    private String parmasStr = "";
+
+    List<DataBean> tempList = new ArrayList<DataBean>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        setActionBar("部门表",R.drawable.nav_return,0);
-        requestUrl = getIntent().getStringExtra("requestUrl");
-
-        //获取第一个界面存起来的key
-        parmasStr = (String) SPUtils.get(this, Const.SpAddress.ADDRESS_KEY, "");
+        setActionBar("通讯录", R.drawable.nav_return, 0);
+        id = getIntent().getIntExtra("id", 0);//默认id是0
+        tempList = DataSupport.where("pId=?", id + "").find(DataBean.class);
 
         departmentAdapter = new DepartmentAdapter(this);
-        departmentAdapter.setList(list);
+        departmentAdapter.setList(tempList);
         listView.setAdapter(departmentAdapter);
         listView.setOnItemClickListener(this);
-        getData(requestUrl);
     }
 
     @Override
@@ -65,21 +66,32 @@ public class DepartmentActivity extends BaseActivity implements AdapterView.OnIt
 
     }
 
-    private void getData(String url) {
-        RequestParams params = new RequestParams(Const.WuYe.URL_ADDRESS_PARK_LIST + url);
-
+    /**
+     * 在级别列表页面请求数据，判断下个界面是否有人员列表
+     *
+     * @param departmentId
+     */
+    private void getData(final String departmentId) {
+        ProgressUtil.show(this, "加载中...");
+        RequestParams params = new RequestParams(Const.WuYe.URL_ADDRESS_ALL_CONTANCTS);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
+        params.addParameter("departmentId", departmentId);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                gardenContactBean = gson.fromJson(result, GardenContactBean.class);
-                departmentAdapter.setList(gardenContactBean.getData());
-                departmentAdapter.notifyDataSetChanged();
+                PersonListBean personListBean = gson.fromJson(result, PersonListBean.class);
+                int size = personListBean.getData().size();
+                if (size == 0) {
+                    T.showShort(DepartmentActivity.this, "暂无人员列表");
+                } else {
+                    Intent intent = new Intent(DepartmentActivity.this, PersonListActivity.class);
+                    intent.putExtra("departmentId", departmentId);
+                }
             }
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
             }
 
             @Override
@@ -89,46 +101,55 @@ public class DepartmentActivity extends BaseActivity implements AdapterView.OnIt
 
             @Override
             public void onFinished() {
-
+                ProgressUtil.close();
             }
         });
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String isShowMembers = gardenContactBean.getIsShowMembers();
-        String isNextUrlParam = gardenContactBean.getIsNextUrlParam();
-        String requestUrl = gardenContactBean.getRequestUrl();
-        String isShowMembersParam = gardenContactBean.getIsShowMembersParam();
-        String paramKey = gardenContactBean.getParamKey();
-        int val = gardenContactBean.getData().get(position).getVal();
-
-        if (isShowMembers.equals("1")) {//不是人员列表
-
-            if (isNextUrlParam.equals("1")) {//不拼接
-
-            } else if (isNextUrlParam.equals("0")) {//拼接
-
-            }
-            Intent intent = new Intent(this, DepartmentActivity.class);
-            intent.putExtra("requestUrl", requestUrl);
-            startActivity(intent);
-        } else if (isShowMembers.equals("0")) {//是人员列表
-            if (isNextUrlParam.equals("1")) {//不拼接
-
-            } else if (isNextUrlParam.equals("0")) {//拼接
-
-            }
-            //跳转到人员列表页
-            Intent intent = new Intent(this, PersonListActivity.class);
-            intent.putExtra("requestUrl", requestUrl);
+        DataBean bean = departmentAdapter.getList().get(position);
+        if (DataSupport.where("pId=?", bean.getId() + "").find(DataBean.class).size() == 0) {
+            //如果没有下一级部门，则请求人员列表
+            getData(bean.getId() + "");
+        } else {
+            Intent intent = new Intent(DepartmentActivity.this, DepartmentActivity.class);
+            intent.putExtra("id", bean.getId());
             startActivity(intent);
         }
-        if (isShowMembersParam.equals("0") || isShowMembers.equals("0")) {//存起来
-            SPUtils.remove(this, Const.SpAddress.ADDRESS_KEY);
-            SPUtils.put(this, Const.SpAddress.ADDRESS_KEY, parmasStr + "-" + paramKey + ":" + val);
-        } else if (isShowMembersParam.equals("1")) {//不存
-
-        }
+//        String isShowMembers = gardenContactBean.getIsShowMembers();
+//        String isNextUrlParam = gardenContactBean.getIsNextUrlParam();
+//        String requestUrl = gardenContactBean.getRequestUrl();
+//        String isShowMembersParam = gardenContactBean.getIsShowMembersParam();
+//        String paramKey = gardenContactBean.getParamKey();
+//        int val = gardenContactBean.getData().get(position).getVal();
+//
+//        if (isShowMembers.equals("1")) {//不是人员列表
+//
+//            if (isNextUrlParam.equals("1")) {//不拼接
+//
+//            } else if (isNextUrlParam.equals("0")) {//拼接
+//
+//            }
+//            Intent intent = new Intent(this, DepartmentActivity.class);
+//            intent.putExtra("requestUrl", requestUrl);
+//            startActivity(intent);
+//        } else if (isShowMembers.equals("0")) {//是人员列表
+//            if (isNextUrlParam.equals("1")) {//不拼接
+//
+//            } else if (isNextUrlParam.equals("0")) {//拼接
+//
+//            }
+//            //跳转到人员列表页
+//            Intent intent = new Intent(this, PersonListActivity.class);
+//            intent.putExtra("requestUrl", requestUrl);
+//            startActivity(intent);
+//        }
+//        if (isShowMembersParam.equals("0") || isShowMembers.equals("0")) {//存起来
+//            SPUtils.remove(this, Const.SpAddress.ADDRESS_KEY);
+//            SPUtils.put(this, Const.SpAddress.ADDRESS_KEY, parmasStr + "-" + paramKey + ":" + val);
+//        } else if (isShowMembersParam.equals("1")) {//不存
+//
+//        }
     }
 }

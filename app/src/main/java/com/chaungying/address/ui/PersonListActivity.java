@@ -30,7 +30,7 @@ import java.util.List;
 @ContentView(R.layout.activity_person_list)
 public class PersonListActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    String requestUrl = "";
+    String departmentId = "";
 
     @ViewInject(R.id.lv_person_list)
     ListView lv_person_list;
@@ -47,7 +47,7 @@ public class PersonListActivity extends BaseActivity implements AdapterView.OnIt
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         setActionBar("联系人",R.drawable.nav_return,0);
-        requestUrl = getIntent().getStringExtra("requestUrl");
+        departmentId = getIntent().getStringExtra("departmentId");
 
         personListAdapter = new PersonListAdapter(this);
         personListAdapter.setList(list);
@@ -58,14 +58,9 @@ public class PersonListActivity extends BaseActivity implements AdapterView.OnIt
 
     private void getData() {
         ProgressUtil.show(this, "加载中...");
-        RequestParams params = new RequestParams(Const.WuYe.URL_ADDRESS_PARK_LIST + requestUrl);
-        String paramsStr = (String) SPUtils.get(this, Const.SpAddress.ADDRESS_KEY, "");
-        String[] str = paramsStr.split("-");
-        for (int i = 0; i < str.length; i++) {
-            String key = str[i].split(":")[0];
-            String value = str[i].split(":")[1];
-            params.addParameter(key, value);
-        }
+        RequestParams params = new RequestParams(Const.WuYe.URL_ADDRESS_ALL_CONTANCTS);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
+        params.addParameter("departmentId", departmentId);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

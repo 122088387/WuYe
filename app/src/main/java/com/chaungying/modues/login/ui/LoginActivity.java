@@ -239,7 +239,7 @@ public class LoginActivity extends AppCompatActivity {
                             passwordET.setEnabled(true);
                             isGoClick = true;
                             goBtn.setText("登陆");
-                            T.showShort(LoginActivity.this, "获取数据失败");
+                            T.showShort(LoginActivity.this, "未连接到服务器");
                             ex.printStackTrace();
                         }
 
@@ -434,7 +434,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         SPUtils.put(this, Const.SPDate.USER_ELEMENT_ID, requestBase.user.elementId == 0 ? "" : requestBase.user.elementId + "");
         if (requestBase.user.lessee != null) {
-            SPUtils.put(this, Const.SPDate.USER_ELEMENT_ID, requestBase.user.elementId == 0 ? "" :requestBase.user.lessee.elementId + "");
+            SPUtils.put(this, Const.SPDate.USER_ELEMENT_ID, requestBase.user.elementId == 0 ? "" : requestBase.user.lessee.elementId + "");
         }
         SPUtils.put(this, Const.SPDate.IS_ADMIN, requestBase.isAdmin);
         SPUtils.put(this, Const.SPDate.IS_WUYE_OR_YEZHU, requestBase.user.type);

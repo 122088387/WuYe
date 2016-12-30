@@ -6,34 +6,43 @@ import java.util.List;
 /**
  * @author 王晓赛 or 2016/8/31
  */
-public class PersonListBean {
+public class PersonListBean implements Serializable {
+
 
     /**
      * respCode : 1001
-     * data : [{"position":"软件工程师","createTime":null,"sex":2,"payPassword":"","state":0,"password":"96e79218965eb72c92a549dd5a330112","portrait":"","id":4597,"districtId":1,"qrcode":"","userName":"任广洲","departmentId":2,"qrcodeDir":"","qrcodeFileName":"","macId":"FF-FE-4F-1B-27-71","roleId":24,"loginName":"13716571398"},{"position":"软件工程师","createTime":null,"sex":2,"payPassword":"","state":0,"password":"96e79218965eb72c92a549dd5a330112","portrait":"","id":4598,"districtId":1,"qrcode":"","userName":"李德贵","departmentId":2,"qrcodeDir":"","qrcodeFileName":"","macId":"FF-F7-93-64-29-72","roleId":24,"loginName":"13120263236"},{"position":"软件工程师","createTime":null,"sex":2,"payPassword":"","state":0,"password":"96e79218965eb72c92a549dd5a330112","portrait":"","id":4599,"districtId":1,"qrcode":"","userName":"王伶江","departmentId":2,"qrcodeDir":"","qrcodeFileName":"","macId":"FF-B6-4A-79-4D-C3","roleId":24,"loginName":"13716089882"},{"position":"软件工程师","createTime":null,"sex":2,"payPassword":"","state":0,"password":"96e79218965eb72c92a549dd5a330112","portrait":"","id":4600,"districtId":1,"qrcode":"","userName":"聂德磊","departmentId":2,"qrcodeDir":"","qrcodeFileName":"","macId":"FF-13-B6-3B-95-0A","roleId":24,"loginName":"18211067417"},{"position":"软件工程师","createTime":null,"sex":2,"payPassword":"","state":0,"password":"96e79218965eb72c92a549dd5a330112","portrait":"","id":4601,"districtId":1,"qrcode":"","userName":"高彬","departmentId":2,"qrcodeDir":"","qrcodeFileName":"","macId":"FF-D6-CB-B5-E2-8A","roleId":24,"loginName":"15117980520"},{"position":"软件工程师","createTime":null,"sex":2,"payPassword":"","state":0,"password":"96e79218965eb72c92a549dd5a330112","portrait":"","id":4608,"districtId":1,"qrcode":"","userName":"sai","departmentId":2,"qrcodeDir":"","qrcodeFileName":"","macId":"FF-F7-05-E5-F0-16","roleId":22,"loginName":"15632288403"}]
+     * data : [{"position":"测试职位","iosToken":"","createTime":null,"lessee":null,"sex":0,"payPassword":"","androidToken":"","state":0,"lesseeId":0,"type":0,"password":"","departmentName":"开发部","portrait":"","id":4524,"districtName":"","districtId":0,"qrcode":"","company":"","userName":"王学东","qrcodeDir":"","departmentId":0,"qrcodeFileName":"","macId":"","roleId":0,"loginName":"15354095859"},{"position":"测试人员","iosToken":"","createTime":null,"lessee":null,"sex":0,"payPassword":"","androidToken":"","state":0,"lesseeId":0,"type":0,"password":"","departmentName":"开发部","portrait":"","id":4613,"districtName":"","districtId":0,"qrcode":"","company":"","userName":"王晓赛","qrcodeDir":"","departmentId":0,"qrcodeFileName":"","macId":"","roleId":0,"loginName":"15631188403"},{"position":"测试人员","iosToken":"","createTime":null,"lessee":null,"sex":0,"payPassword":"","androidToken":"","state":0,"lesseeId":0,"type":0,"password":"","departmentName":"开发部","portrait":"","id":4614,"districtName":"","districtId":0,"qrcode":"","company":"","userName":"郭兴","qrcodeDir":"","departmentId":0,"qrcodeFileName":"","macId":"","roleId":0,"loginName":"15731131542"},{"position":"测试人员","iosToken":"","createTime":null,"lessee":null,"sex":0,"payPassword":"","androidToken":"","state":0,"lesseeId":0,"type":0,"password":"","departmentName":"开发部","portrait":"","id":4615,"districtName":"","districtId":0,"qrcode":"","company":"","userName":"任瑞志","qrcodeDir":"","departmentId":0,"qrcodeFileName":"","macId":"","roleId":0,"loginName":"17778251120"},{"position":"物业人员","iosToken":"","createTime":null,"lessee":null,"sex":0,"payPassword":"","androidToken":"","state":0,"lesseeId":0,"type":0,"password":"","departmentName":"开发部","portrait":"","id":4617,"districtName":"","districtId":0,"qrcode":"","company":"","userName":"任小雷","qrcodeDir":"","departmentId":0,"qrcodeFileName":"","macId":"","roleId":0,"loginName":"18601049669"}]
      * respMsg : 成功！
      */
 
     private int respCode;
     private String respMsg;
     /**
-     * position : 软件工程师
+     * position : 测试职位
+     * iosToken :
      * createTime : null
-     * sex : 2
+     * lessee : null
+     * sex : 0
      * payPassword :
+     * androidToken :
      * state : 0
-     * password : 96e79218965eb72c92a549dd5a330112
+     * lesseeId : 0
+     * type : 0
+     * password :
+     * departmentName : 开发部
      * portrait :
-     * id : 4597
-     * districtId : 1
+     * id : 4524
+     * districtName :
+     * districtId : 0
      * qrcode :
-     * userName : 任广洲
-     * departmentId : 2
+     * company :
+     * userName : 王学东
      * qrcodeDir :
+     * departmentId : 0
      * qrcodeFileName :
-     * macId : FF-FE-4F-1B-27-71
-     * roleId : 24
-     * loginName : 13716571398
+     * macId :
+     * roleId : 0
+     * loginName : 15354095859
      */
 
     private List<DataBean> data;
@@ -62,34 +71,32 @@ public class PersonListBean {
         this.data = data;
     }
 
-    public static class DataBean implements Serializable{
+    public static class DataBean implements Serializable {
         private String position;
+        private String iosToken;
         private Object createTime;
+        private Object lessee;
         private int sex;
         private String payPassword;
+        private String androidToken;
         private int state;
-        private String departmentName;
+        private int lesseeId;
+        private int type;
         private String password;
+        private String departmentName;
         private String portrait;
         private int id;
+        private String districtName;
         private int districtId;
         private String qrcode;
+        private String company;
         private String userName;
-        private int departmentId;
         private String qrcodeDir;
+        private int departmentId;
         private String qrcodeFileName;
         private String macId;
         private int roleId;
         private String loginName;
-
-
-        public String getDepartmentName() {
-            return departmentName;
-        }
-
-        public void setDepartmentName(String departmentName) {
-            this.departmentName = departmentName;
-        }
 
         public String getPosition() {
             return position;
@@ -99,12 +106,28 @@ public class PersonListBean {
             this.position = position;
         }
 
+        public String getIosToken() {
+            return iosToken;
+        }
+
+        public void setIosToken(String iosToken) {
+            this.iosToken = iosToken;
+        }
+
         public Object getCreateTime() {
             return createTime;
         }
 
         public void setCreateTime(Object createTime) {
             this.createTime = createTime;
+        }
+
+        public Object getLessee() {
+            return lessee;
+        }
+
+        public void setLessee(Object lessee) {
+            this.lessee = lessee;
         }
 
         public int getSex() {
@@ -123,6 +146,14 @@ public class PersonListBean {
             this.payPassword = payPassword;
         }
 
+        public String getAndroidToken() {
+            return androidToken;
+        }
+
+        public void setAndroidToken(String androidToken) {
+            this.androidToken = androidToken;
+        }
+
         public int getState() {
             return state;
         }
@@ -131,12 +162,36 @@ public class PersonListBean {
             this.state = state;
         }
 
+        public int getLesseeId() {
+            return lesseeId;
+        }
+
+        public void setLesseeId(int lesseeId) {
+            this.lesseeId = lesseeId;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
         public String getPassword() {
             return password;
         }
 
         public void setPassword(String password) {
             this.password = password;
+        }
+
+        public String getDepartmentName() {
+            return departmentName;
+        }
+
+        public void setDepartmentName(String departmentName) {
+            this.departmentName = departmentName;
         }
 
         public String getPortrait() {
@@ -155,6 +210,14 @@ public class PersonListBean {
             this.id = id;
         }
 
+        public String getDistrictName() {
+            return districtName;
+        }
+
+        public void setDistrictName(String districtName) {
+            this.districtName = districtName;
+        }
+
         public int getDistrictId() {
             return districtId;
         }
@@ -171,6 +234,14 @@ public class PersonListBean {
             this.qrcode = qrcode;
         }
 
+        public String getCompany() {
+            return company;
+        }
+
+        public void setCompany(String company) {
+            this.company = company;
+        }
+
         public String getUserName() {
             return userName;
         }
@@ -179,20 +250,20 @@ public class PersonListBean {
             this.userName = userName;
         }
 
-        public int getDepartmentId() {
-            return departmentId;
-        }
-
-        public void setDepartmentId(int departmentId) {
-            this.departmentId = departmentId;
-        }
-
         public String getQrcodeDir() {
             return qrcodeDir;
         }
 
         public void setQrcodeDir(String qrcodeDir) {
             this.qrcodeDir = qrcodeDir;
+        }
+
+        public int getDepartmentId() {
+            return departmentId;
+        }
+
+        public void setDepartmentId(int departmentId) {
+            this.departmentId = departmentId;
         }
 
         public String getQrcodeFileName() {

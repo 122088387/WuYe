@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.chaungying.address.bean.GardenContactBean;
+import com.chaungying.address.bean.DataBean;
 import com.chaungying.wuye3.R;
 
 import java.util.ArrayList;
@@ -20,14 +20,18 @@ public class ParkListAdapter extends BaseAdapter {
 
 
     private Context mContext;
-    List<GardenContactBean.DataBean> list = new ArrayList<GardenContactBean.DataBean>();
+    List<DataBean> list = new ArrayList<DataBean>();
 
     public ParkListAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setList(List<GardenContactBean.DataBean> list) {
+    public void setList(List<DataBean> list) {
         this.list = list;
+    }
+
+    public List<DataBean> getList() {
+        return list;
     }
 
     @Override

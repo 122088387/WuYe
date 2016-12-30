@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -20,6 +19,7 @@ import com.chaungying.modues.main.bean.RoleAppsBean;
 import com.chaungying.modues.main.bean.TabEntity;
 import com.chaungying.modues.main.bean.WindowBtnBean;
 import com.chaungying.modues.main.utils.FileUtils;
+import com.chaungying.modues.main.view.AddressFragment;
 import com.chaungying.modues.main.view.ApplyFragment;
 import com.chaungying.modues.main.view.SetFragment;
 import com.chaungying.wuye3.R;
@@ -42,23 +42,27 @@ import java.util.List;
 @ContentView(R.layout.activity_main1)
 public class MainActivity extends FragmentActivity implements WorkFragment.sendMsgNumberListener, SetFragment.SetSystemUpdateListener {
 
+    //工作台的下标
+    private static final int WORK_FRAGMENT_POSITION = 0;
+    //设置界面的下标
+    private static final int SET_FRAGMENT_POSITION = 3;
+
     private Context mContext = this;
     private ArrayList<Fragment> mFragments = new ArrayList<>();
 
     private String[] mTitles = {"工作台", "应用",
-//            "通讯录",//注释时注意
+            "通讯录",//注释时注意
             "设置"};
     //没有按下时
     private int[] mIconUnselectIds = {R.drawable.icon_workbench, R.drawable.icon_apply,
-//            R.drawable.icon_address_list,//注释时注意
+            R.drawable.icon_mes,//注释时注意
             R.drawable.icon_set};
     //按下时的图片
     private int[] mIconSelectIds = {R.drawable.icon_workbench_b, R.drawable.icon_apply_b,
-//            R.drawable.icon_address_list_b,//注释时注意
+            R.drawable.icon_mes_b,//注释时注意
             R.drawable.icon_set_b};
     //创建下部Tab的集合
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
-    private View mDecorView;
 
     private ViewPager viewPager;
 
@@ -68,6 +72,7 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
 
     private WorkFragment workFragment;
     private ApplyFragment applyFragment;
+    private AddressFragment addressFragment;
     private SetFragment setFragment;
 
     private MainAdapter adapter;
@@ -95,12 +100,16 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
 
         applyFragment = new ApplyFragment(data_list);
 
+        //通讯录Fragment
+        addressFragment = new AddressFragment();
+
         //设置中系统提示的回调
         setFragment = new SetFragment();
         setFragment.setSetSystemUpdateListener(this);
 
         mFragments.add(workFragment);
         mFragments.add(applyFragment);
+        mFragments.add(addressFragment);
         mFragments.add(setFragment);
 
 
@@ -114,7 +123,7 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
         viewPager = (ViewPager) findViewById(R.id.fl_change);
         adapter = new MainAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(3);
         for (int i = 0; i < mTitles.length; i++) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTabLayout_1.getIconView(i).getLayoutParams();
             params.setMargins(0, 12, 0, 0);
@@ -176,15 +185,16 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
         super.onResume();
     }
 
+
     @Override
     public void sendMsgNumber(int num) {
         if (num > 0) {
-            mTabLayout_1.showMsg(0, num);
-            mTabLayout_1.setMsgMargin(0, -10, 2);
-            MsgView msgView = mTabLayout_1.getMsgView(0);
+            mTabLayout_1.showMsg(WORK_FRAGMENT_POSITION, num);
+            mTabLayout_1.setMsgMargin(WORK_FRAGMENT_POSITION, -10, 2);
+            MsgView msgView = mTabLayout_1.getMsgView(WORK_FRAGMENT_POSITION);
             msgView.setStrokeWidth(0);
         } else {
-            mTabLayout_1.hideMsg(0);
+            mTabLayout_1.hideMsg(WORK_FRAGMENT_POSITION);
         }
     }
 
@@ -196,12 +206,12 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
     @Override
     public void systemUpdate(boolean isShow) {
         if (isShow) {
-            mTabLayout_1.showMsg(2, 1);
-            mTabLayout_1.setMsgMargin(2, -8, 1);
-            MsgView msgView = mTabLayout_1.getMsgView(2);
+            mTabLayout_1.showMsg(SET_FRAGMENT_POSITION, 1);
+            mTabLayout_1.setMsgMargin(SET_FRAGMENT_POSITION, -8, 1);
+            MsgView msgView = mTabLayout_1.getMsgView(SET_FRAGMENT_POSITION);
             msgView.setStrokeWidth(0);
         } else {
-            mTabLayout_1.hideMsg(2);
+            mTabLayout_1.hideMsg(SET_FRAGMENT_POSITION);
         }
     }
 

@@ -82,6 +82,9 @@ public class MettingRoomActivity extends BaseActivity implements AdapterView.OnI
     @ViewInject(R.id.title_back)
     private ImageView back;
 
+    //是否第一次将月历变为周历
+    private boolean isFirstMonthToWeek = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,9 +106,9 @@ public class MettingRoomActivity extends BaseActivity implements AdapterView.OnI
         //创建适配器
         adapter = new MettingRoomAdapter(this);
         //连接网络获取数据
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date = sdf.format(Calendar.getInstance().getTime());
-        upData(date);
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String date = sdf.format(Calendar.getInstance().getTime());
+//        upData(date);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
@@ -214,12 +217,15 @@ public class MettingRoomActivity extends BaseActivity implements AdapterView.OnI
                 } else {
                     T.showShort(MettingRoomActivity.this, "没有数据");
                 }
-                MotionEvent event = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 200, monthView.getY()+monthView.getHeight(), 0);
-                scroll_layout.dispatchTouchEvent(event);
-                MotionEvent event1 = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, 200, monthView.getY()+monthView.getHeight()-100, 0);
-                scroll_layout.dispatchTouchEvent(event1);
-                MotionEvent event2 = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, 200, monthView.getY(), 0);
-                scroll_layout.dispatchTouchEvent(event2);
+                if (isFirstMonthToWeek) {
+                    MotionEvent event = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_DOWN, 200, monthView.getY() + monthView.getHeight(), 0);
+                    scroll_layout.dispatchTouchEvent(event);
+                    MotionEvent event1 = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, 200, monthView.getY() + monthView.getHeight() - 100, 0);
+                    scroll_layout.dispatchTouchEvent(event1);
+                    MotionEvent event2 = MotionEvent.obtain(SystemClock.uptimeMillis(), SystemClock.uptimeMillis(), MotionEvent.ACTION_MOVE, 200, monthView.getY(), 0);
+                    scroll_layout.dispatchTouchEvent(event2);
+                    isFirstMonthToWeek = false;
+                }
             }
 
             @Override
