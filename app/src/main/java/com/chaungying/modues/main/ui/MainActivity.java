@@ -133,7 +133,7 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
         viewPager = (ViewPager) findViewById(R.id.fl_change);
         adapter = new MainAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(mTitles.length);
         for (int i = 0; i < mTitles.length; i++) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTabLayout_1.getIconView(i).getLayoutParams();
             params.setMargins(0, 12, 0, 0);

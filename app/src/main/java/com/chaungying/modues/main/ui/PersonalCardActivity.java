@@ -329,7 +329,7 @@ public class PersonalCardActivity extends BaseActivity implements AdapterView.On
         tianshuNum.add(cardBean.getTardinessPeople());
         tianshuNum.add(cardBean.getAbsenteeismPeople());
 
-        avgWorks.setText("本月平均工时：" + BigDecimalUtils.rounding(cardBean.getAvgWorks()));
+        avgWorks.setText("本月平均工时：" + BigDecimalUtils.rounding1(cardBean.getAvgWorks()));
         departmentrRank.setText("部门内排名：" + cardBean.getDepartmentrRank());
         for (int i = 0; i < rl_list.size(); i++) {
             tianShuTitle.get(i).setText(tilteStr[i]);

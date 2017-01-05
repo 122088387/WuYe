@@ -471,6 +471,7 @@ public class SignInActivity extends BaseActivity {
             T.showLong(this, "定位失败，无法签到");
             return;
         }
+        ProgressUtil.show(this,"");
         RequestParams params = new RequestParams(Const.WuYe.URL_SIGN);
         params.setConnectTimeout(5 * 1000);
 //        signInDate=签到日期&signInTime=签到时间&wifiName=wifi&signInAddress=签到地址&memberId=用户id
@@ -528,6 +529,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onFinished() {
                 isRunning = false;
+                ProgressUtil.close();
             }
         });
 //        }

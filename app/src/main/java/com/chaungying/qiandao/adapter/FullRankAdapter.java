@@ -59,7 +59,7 @@ public class FullRankAdapter extends BaseAdapter {
         ManagerTongJiBean.DataBean bean = list.get(position);
         holderP.full_rank_num_item.setText(position + 1 + "");
         holderP.full_rank_name_item.setText(bean.getUserName());
-        holderP.full_rank_counts_item.setText(BigDecimalUtils.rounding(Double.parseDouble(bean.getCounts()) / 60 + ""));
+        holderP.full_rank_counts_item.setText(BigDecimalUtils.rounding1(Double.parseDouble(bean.getCounts()) / 60 + ""));
         return convertView;
     }
 
