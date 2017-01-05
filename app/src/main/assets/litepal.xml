@@ -7,6 +7,6 @@
         <mapping class="com.chaungying.gongzuotai.dbbean.RepairBean" />
         <mapping class="com.chaungying.gongzuotai.dbbean.UserIdTimeBean" />
         <mapping class="com.chaungying.gongzuotai.dbbean.UserIdTimeRepairBean" />
-        <mapping class="com.chaungying.address.bean.DataBean" />
+        <mapping class="com.chaungying.address.bean.DBDataBean" />
     </list>
 </litepal>

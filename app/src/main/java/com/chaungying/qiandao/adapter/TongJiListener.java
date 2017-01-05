@@ -95,6 +95,7 @@ public class TongJiListener implements PullToRefreshLayout.OnRefreshListener {
         if (SinginListFragment.card != null && SinginListFragment.card.equals("card")) {
             params.addParameter("signInDate", SinginListFragment.signInDate);
         }
+        params.addParameter("districtId", SPUtils.get(mContext, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

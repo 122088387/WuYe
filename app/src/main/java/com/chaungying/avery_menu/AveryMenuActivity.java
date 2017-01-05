@@ -139,8 +139,8 @@ public class AveryMenuActivity extends BaseActivity implements View.OnTouchListe
 //            @Override
 //            public void onTabSelect(int position) {
 //                if(list.size() > 0){
-//                    List<MenuBean.DataBean.CookbookInfosBean> cookList = list.get(0).getCookbookInfos();
-//                    List<MenuBean.DataBean.CookbookInfosBean> cookList1 = new ArrayList<MenuBean.DataBean.CookbookInfosBean>();
+//                    List<MenuBean.DBDataBean.CookbookInfosBean> cookList = list.get(0).getCookbookInfos();
+//                    List<MenuBean.DBDataBean.CookbookInfosBean> cookList1 = new ArrayList<MenuBean.DBDataBean.CookbookInfosBean>();
 //                    for (int i = 0; i < cookList.size(); i++) {
 //                        if (cookList.get(i).getType() == position + 1) {
 //                            cookList1.add(cookList.get(i));
@@ -211,6 +211,7 @@ public class AveryMenuActivity extends BaseActivity implements View.OnTouchListe
 //        ?userId=4513&date=2016-08-17
         params.addParameter("userId", SPUtils.get(this, Const.SPDate.ID, 4512));
         params.addParameter("date", date);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

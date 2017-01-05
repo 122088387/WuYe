@@ -259,6 +259,7 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
     private void getData() {
         orderUrl = Const.WuYe.URL_WORK_BEANCE + "?" + getUserId();
         RequestParams params = new RequestParams(orderUrl);
+        params.addParameter("districtId", (String) SPUtils.get(getContext(), Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result1) {
@@ -340,9 +341,9 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
             } else if (type == 2) {//抢单中心
                 //如果有抢单中心  再加载 我的报修 的数据
                 getMyRepair();
-//                List<List<AllMsgBean.DataBean.DatasBean>> databeanList = datasBean.getDatas();
+//                List<List<AllMsgBean.DBDataBean.DatasBean>> databeanList = datasBean.getDatas();
 //                for (int j = 0; j < databeanList.size(); j++) {
-//                    List<AllMsgBean.DataBean.DatasBean> databeanList1 = databeanList.get(j);
+//                    List<AllMsgBean.DBDataBean.DatasBean> databeanList1 = databeanList.get(j);
 //                    RepairBean repairBean = new RepairBean();
 //                    repairBean.setLayoutid(datasBean.getLayoutid());
 //                    repairBean.setApplicationId(datasBean.getApplicationId());
@@ -410,7 +411,7 @@ public class WorkFragment extends Fragment implements AdapterView.OnItemClickLis
                 MyRepairBean.DataBean.DatasBean dataBean = datasBean.get(j);
                 switch (j) {
                     case 0:
-                        repairBean.setTitle(dataBean.getTitle() + dataBean.getValue());
+                        repairBean.setTitle(dataBean.getTitle() + ":" + dataBean.getValue());
                         break;
                     case 1:
                         repairBean.setTitle1(dataBean.getTitle() + ":" + dataBean.getValue());

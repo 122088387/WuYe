@@ -14,6 +14,7 @@ import com.chaungying.calendar.views.MonthView;
 import com.chaungying.calendar.views.ScrollLayout;
 import com.chaungying.calendar.views.WeekView;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.utils.T;
 import com.chaungying.common.utils.date.DateUtil;
 import com.chaungying.metting.view.ProgressUtil;
@@ -131,6 +132,7 @@ public class UseCarActivity extends BaseActivity implements AdapterView.OnItemCl
         params.addParameter("queryDate", date);
         //选择的日期
         this.data = date;
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

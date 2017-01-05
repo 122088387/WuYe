@@ -105,6 +105,7 @@ public class MsgListActivity extends BaseActivity implements AdapterView.OnItemC
     private void getRobDatas() {
         ProgressUtil.show(this, "加载中...");
         RequestParams params = new RequestParams(orderUrl.substring(0, orderUrl.lastIndexOf("=") + 1));
+        params.addParameter("districtId", (String) SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -146,12 +147,14 @@ public class MsgListActivity extends BaseActivity implements AdapterView.OnItemC
                 for (int j = 0; j < databeanList.size(); j++) {
                     List<AllMsgBean.DataBean.DatasBean> databeanList1 = databeanList.get(j);
                     RepairBean repairBean = new RepairBean();
-                    repairBean.setLayoutid(ExtraTag.LAYOUT_TAG_ROB_ORDER);
+                    repairBean.setLayoutid(ExtraTag.LAYOUT_TAG_ORDER_MEAL);
                     repairBean.setApplicationId(datasBean.getApplicationId());
                     repairBean.setType(datasBean.getType());
-                    repairBean.setTitle(databeanList1.get(0).getTitle() + databeanList1.get(0).getValue());
-                    repairBean.setTitle1(databeanList1.get(1).getTitle() + ":" + databeanList1.get(1).getValue());
+                    repairBean.setTitle(databeanList1.get(0).getTitle() + ":" + databeanList1.get(0).getValue());
+                    String str = databeanList1.get(1).getTitle() + databeanList1.get(1).getValue();
+                    repairBean.setTitle1(str.substring(0, str.lastIndexOf(":")));
                     repairBean.setTitle2(databeanList1.get(2).getTitle() + ":" + databeanList1.get(2).getValue());
+                    repairBean.setTitle3(databeanList1.get(3).getTitle() + ":" + databeanList1.get(3).getValue());
                     repairBean.setLogicId(databeanList1.get(0).getLogicId());
                     repairBean.setRead(false);
                     repairBean.setUserId((int) SPUtils.get(this, Const.SPDate.ID, 4512));
@@ -333,7 +336,7 @@ public class MsgListActivity extends BaseActivity implements AdapterView.OnItemC
         PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, 0);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.add(Calendar.SECOND, 60*30);
+        calendar.add(Calendar.SECOND, 60 * 30);
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
         manager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
 

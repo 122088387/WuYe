@@ -46,7 +46,7 @@ public class PersonListActivity extends BaseActivity implements AdapterView.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        setActionBar("联系人",R.drawable.nav_return,0);
+        setActionBar("联系人", R.drawable.nav_return, 0);
         departmentId = getIntent().getStringExtra("departmentId");
 
         personListAdapter = new PersonListAdapter(this);
@@ -95,6 +95,7 @@ public class PersonListActivity extends BaseActivity implements AdapterView.OnIt
         Intent intent = new Intent(this, PersonDetailsActivity.class);
         intent.putExtra("person_bean", dataBean);
         intent.putExtra("tag", "person_list");
+        intent.putExtra("portrait", dataBean.getPortrait());
         startActivity(intent);
     }
 }

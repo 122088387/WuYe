@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.chaungying.address.bean.DataBean;
+import com.chaungying.address.bean.DBDataBean;
 import com.chaungying.wuye3.R;
 
 import java.util.ArrayList;
@@ -19,17 +19,17 @@ import java.util.List;
 public class DepartmentAdapter extends BaseAdapter {
 
     private Context mContext;
-    List<DataBean> list = new ArrayList<DataBean>();
+    List<DBDataBean> list = new ArrayList<DBDataBean>();
 
     public DepartmentAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setList(List<DataBean> list) {
+    public void setList(List<DBDataBean> list) {
         this.list = list;
     }
 
-    public List<DataBean> getList() {
+    public List<DBDataBean> getList() {
         return list;
     }
 

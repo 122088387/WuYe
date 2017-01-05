@@ -113,7 +113,7 @@ import static com.chaungying.common.utils.SPUtils.get;
  * @author 王晓赛 or 2016/6/27
  */
 @ContentView(R.layout.fragment_repairs)
-public class RepairsFragment extends BaseFragment implements View.OnClickListener ,EasyPermissions.PermissionCallbacks{
+public class RepairsFragment extends BaseFragment implements View.OnClickListener, EasyPermissions.PermissionCallbacks {
 
     private Activity mContext;
 
@@ -870,7 +870,6 @@ public class RepairsFragment extends BaseFragment implements View.OnClickListene
                     cameraViewVar.gridviewInit(drr);
 
 
-
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHssmm");
                     String pathSD = saveBitmap(bitmap1, sdf.format(new Date()));
                     files1.put(pathSD, new File(pathSD));
@@ -1137,12 +1136,14 @@ public class RepairsFragment extends BaseFragment implements View.OnClickListene
                 case 158://选择地址控件
                     if (selectAddressView.getIsRequired() == 0 && selectAddressView.getShow().equals("")) {
                         T.showShort(mContext, item.getTitle() + "：为必填项");
-                        params.addBodyParameter(item.getFieldname(), selectAddressView.getShow());
+                        ProgressUtil.close();
+                        return;
                     }
+                    params.addBodyParameter(item.getFieldname(), selectAddressView.getShow());
                     break;
             }
         }
-
+        params.addParameter("districtId", SPUtils.get(mContext, Const.SPDate.USER_DISTRICT_ID, ""));
         params.addParameter("userId", get(mContext, Const.SPDate.ID, -1));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override

@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.chaungying.address.adapter.ParkListAdapter;
-import com.chaungying.address.bean.DataBean;
+import com.chaungying.address.bean.DBDataBean;
 import com.chaungying.address.bean.GardenContactBean;
 import com.chaungying.address.ui.DepartmentActivity;
 import com.chaungying.common.constant.Const;
@@ -49,30 +49,30 @@ public class AllContactFragment extends Fragment implements AdapterView.OnItemCl
     @Override
     public void onResume() {
         super.onResume();
-        getNetContact("contacts/showDepartments.action");
+        getNetContact();
     }
 
     /**
      * 从服务器获取园区列表
      */
-    private void getNetContact(String url) {
-        RequestParams params = new RequestParams(Const.WuYe.URL_ADDRESS_PARK_LIST + url);
+    private void getNetContact() {
+        RequestParams params = new RequestParams(Const.WuYe.URL_ADDRESS_PARK_LIST);
         params.addParameter("districtId", SPUtils.get(getContext(), Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 gardenContactBean = gson.fromJson(result, GardenContactBean.class);
-                DataSupport.deleteAll(DataBean.class);
+                DataSupport.deleteAll(DBDataBean.class);
                 for (int i = 0; i < gardenContactBean.getData().size(); i++) {
-                    DataBean dataBean = new DataBean();
-                    dataBean.setId(gardenContactBean.getData().get(i).getId());
+                    DBDataBean dataBean = new DBDataBean();
+                    dataBean.setmId(gardenContactBean.getData().get(i).getId());
                     dataBean.setPId(gardenContactBean.getData().get(i).getPId());
                     dataBean.setName(gardenContactBean.getData().get(i).getName());
                     dataBean.save();
                 }
                 //从数据库中查找pId=0的数据
-                List<DataBean> tempList = DataSupport.where("pId=?", "0").find(DataBean.class);
+                List<DBDataBean> tempList = DataSupport.where("pId=?", "0").find(DBDataBean.class);
                 adapter.setList(tempList);
                 adapter.notifyDataSetChanged();
             }
@@ -107,9 +107,9 @@ public class AllContactFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        DataBean bean = adapter.getList().get(position);
+        DBDataBean bean = adapter.getList().get(position);
         Intent intent = new Intent(getActivity(), DepartmentActivity.class);
-        intent.putExtra("id", bean.getId());
+        intent.putExtra("id", bean.getmId());
         startActivity(intent);
 //        String isShowMembers = gardenContactBean.getIsShowMembers();
 //        String isNextUrlParam = gardenContactBean.getIsNextUrlParam();

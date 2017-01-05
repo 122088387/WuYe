@@ -40,7 +40,7 @@ public class AddressFragment extends BaseFragment implements OnTabSelectListener
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mContext = getContext();
         View view = inflater.inflate(R.layout.fragment_address, null);
-        setActionBar(R.string.menu_address, R.drawable.nav_return, 0, view);
+        setActionBar(R.string.menu_address, 0, 0, view);
         tabLayout = (SlidingTabLayout) view.findViewById(R.id.address_group_tablayout);
         //添加全部联系人
         mFragments.add(AllContactFragment.getInstance());
@@ -102,8 +102,10 @@ public class AddressFragment extends BaseFragment implements OnTabSelectListener
         ImageView iv_left = (ImageView) view.findViewById(R.id.title_back);
         ImageView iv_right = (ImageView) view.findViewById(R.id.title_menu);
         tv.setText(text);
-        iv_left.setImageResource(left_drawable);
         if (right_drawable != 0) {
+            iv_right.setImageResource(right_drawable);
+        }
+        if (left_drawable != 0) {
             iv_right.setImageResource(right_drawable);
         }
     }

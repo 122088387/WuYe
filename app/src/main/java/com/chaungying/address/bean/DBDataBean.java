@@ -1,21 +1,23 @@
 package com.chaungying.address.bean;
 
+import org.litepal.crud.DataSupport;
+
 /**
  * 创建者：  王晓赛
  * 时  间： 2016/12/30
  */
 
-public class DataBean {
-    private int id;
+public class DBDataBean extends DataSupport {
+    private int mId;
     private int pId;
     private String name;
 
-    public int getId() {
-        return id;
+    public int getmId() {
+        return mId;
     }
 
-    public void setId(int mId) {
-        this.id = mId;
+    public void setmId(int mId) {
+        this.mId = mId;
     }
 
     public int getPId() {

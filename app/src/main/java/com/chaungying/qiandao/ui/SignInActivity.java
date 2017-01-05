@@ -306,7 +306,7 @@ public class SignInActivity extends BaseActivity {
     @Event(value = R.id.signIn_btn_rootLayout)
     private void onSignIn(View v) {
 //        if (isBtnClick) {
-        mLocationClient.start();
+//        mLocationClient.start();
 //            btnUpTv.setText("正在定位");
 //            progressBar.setVisibility(View.VISIBLE);
 //            progressBar.setProgress(1f);
@@ -407,8 +407,8 @@ public class SignInActivity extends BaseActivity {
 //            String describe = location.getLocationDescribe();// 位置语义化信息
             String describe = location.getAddrStr();//
             if (describe == null || describe.length() == 0) {
-                locationTv.setText("未知");
-                locationTv2.setText("未知");
+                locationTv.setText("定位中...");
+                locationTv2.setText("定位中...");
             } else {
                 locationTv.setText(describe);
                 locationTv2.setText(describe);
@@ -467,6 +467,10 @@ public class SignInActivity extends BaseActivity {
 //            toastor.showSingletonToast("正在签到");
 //        } else {
 //            isRunning = true;
+        if ("定位中...".equals(locationTv.getText().toString()) || "定位中...".equals(locationTv2.getText().toString())) {
+            T.showLong(this, "定位失败，无法签到");
+            return;
+        }
         RequestParams params = new RequestParams(Const.WuYe.URL_SIGN);
         params.setConnectTimeout(5 * 1000);
 //        signInDate=签到日期&signInTime=签到时间&wifiName=wifi&signInAddress=签到地址&memberId=用户id
@@ -478,7 +482,7 @@ public class SignInActivity extends BaseActivity {
         params.addParameter("memberId", SPUtils.get(this, Const.SPDate.ID, 4512));
         params.addParameter("signInLatitude", latitudeTv.getText().toString());
         params.addParameter("signInLongitude", longitudeTv.getText().toString());
-
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

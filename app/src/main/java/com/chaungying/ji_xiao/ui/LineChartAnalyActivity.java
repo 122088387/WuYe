@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.view.DownPopWindowPerView;
 import com.chaungying.ji_xiao.bean.JobHeader;
 import com.chaungying.ji_xiao.bean.JobPer;
@@ -368,6 +369,7 @@ public class LineChartAnalyActivity extends BaseActivity implements OnChartValue
         RequestParams params1 = new RequestParams(Const.WuYe.URL_REPAIR_LINE_CHARTS_LIST);
 //        statistics=统计类型 1按月 2按日
         params1.addParameter("statistics", 1);
+        params1.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params1, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

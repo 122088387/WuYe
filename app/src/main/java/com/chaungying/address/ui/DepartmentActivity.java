@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.address.adapter.DepartmentAdapter;
-import com.chaungying.address.bean.DataBean;
+import com.chaungying.address.bean.DBDataBean;
 import com.chaungying.address.bean.GardenContactBean;
 import com.chaungying.address.bean.PersonListBean;
 import com.chaungying.common.constant.Const;
@@ -44,7 +44,7 @@ public class DepartmentActivity extends BaseActivity implements AdapterView.OnIt
 
     private GardenContactBean gardenContactBean;
 
-    List<DataBean> tempList = new ArrayList<DataBean>();
+    List<DBDataBean> tempList = new ArrayList<DBDataBean>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class DepartmentActivity extends BaseActivity implements AdapterView.OnIt
         x.view().inject(this);
         setActionBar("通讯录", R.drawable.nav_return, 0);
         id = getIntent().getIntExtra("id", 0);//默认id是0
-        tempList = DataSupport.where("pId=?", id + "").find(DataBean.class);
+        tempList = DataSupport.where("pId=?", id + "").find(DBDataBean.class);
 
         departmentAdapter = new DepartmentAdapter(this);
         departmentAdapter.setList(tempList);
@@ -87,6 +87,7 @@ public class DepartmentActivity extends BaseActivity implements AdapterView.OnIt
                 } else {
                     Intent intent = new Intent(DepartmentActivity.this, PersonListActivity.class);
                     intent.putExtra("departmentId", departmentId);
+                    startActivity(intent);
                 }
             }
 
@@ -108,13 +109,13 @@ public class DepartmentActivity extends BaseActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        DataBean bean = departmentAdapter.getList().get(position);
-        if (DataSupport.where("pId=?", bean.getId() + "").find(DataBean.class).size() == 0) {
+        DBDataBean bean = departmentAdapter.getList().get(position);
+        if (DataSupport.where("pId=?", bean.getmId() + "").find(DBDataBean.class).size() == 0) {
             //如果没有下一级部门，则请求人员列表
-            getData(bean.getId() + "");
+            getData(bean.getmId() + "");
         } else {
             Intent intent = new Intent(DepartmentActivity.this, DepartmentActivity.class);
-            intent.putExtra("id", bean.getId());
+            intent.putExtra("id", bean.getmId());
             startActivity(intent);
         }
 //        String isShowMembers = gardenContactBean.getIsShowMembers();

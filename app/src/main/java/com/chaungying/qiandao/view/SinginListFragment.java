@@ -195,6 +195,7 @@ public class SinginListFragment extends Fragment {
         } else {
             pamas.addParameter("memberId", userId);
         }
+        pamas.addParameter("districtId", SPUtils.get(getContext(), Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(pamas, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

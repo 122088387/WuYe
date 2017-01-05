@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chaungying.address.bean.PersonListBean;
 import com.chaungying.wuye3.R;
+import com.github.siyamed.shapeimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,20 +56,24 @@ public class PersonListAdapter extends BaseAdapter {
         } else {
             holer = (ViewHoler) convertView.getTag();
         }
-        holer.person_list_iv.setImageResource(R.drawable.person_touxiang);
+        if (list.get(position).getPortrait() != null && list.get(position).getPortrait().length() > 0) {
+            Picasso.with(mContext).load(list.get(position).getPortrait()).error(R.drawable.person_touxiang).into(holer.person_list_iv);
+        } else {
+            Picasso.with(mContext).load(R.drawable.person_touxiang).into(holer.person_list_iv);
+        }
         holer.person_list_name.setText(list.get(position).getUserName());
         holer.person_list_position.setText(list.get(position).getPosition());
         return convertView;
     }
 
     class ViewHoler {
-        ImageView person_list_iv;
+        CircularImageView person_list_iv;
         TextView person_list_name;
         TextView person_list_position;
 
 
         ViewHoler(View view) {
-            person_list_iv = (ImageView) view.findViewById(R.id.person_list_iv);
+            person_list_iv = (CircularImageView) view.findViewById(R.id.person_list_iv);
             person_list_name = (TextView) view.findViewById(R.id.person_list_name);
             person_list_position = (TextView) view.findViewById(R.id.person_list_position);
         }

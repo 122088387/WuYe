@@ -80,10 +80,10 @@
 
                 <com.chaungying.modues.main.view.FillListView
                     android:id="@+id/lv_num"
-                    android:dividerHeight="0dp"
-                    android:divider="@android:color/transparent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="0dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -101,8 +101,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1"
                         android:layout_marginTop="@dimen/d10"
+                        android:layout_weight="1"
                         android:background="@color/White"
                         android:padding="@dimen/d10">
 
@@ -131,6 +131,7 @@
                             android:layout_centerHorizontal="true" />
 
                         <LinearLayout
+                            android:id="@+id/ll_have_data"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/pieChart1"
@@ -160,6 +161,27 @@
                                 android:layout_height="wrap_content"
                                 android:text="未完成数量" />
 
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ll_no_data"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/pieChart1"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/shape_point_fanshaped6" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="无数据" />
                         </LinearLayout>
 
                     </RelativeLayout>
@@ -229,20 +251,21 @@
 
 
                             <!--<ImageView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:layout_gravity="center_vertical"-->
-                                <!--android:layout_marginLeft="@dimen/d10"-->
-                                <!--android:src="@drawable/shape_point_fanshaped3" />-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center_vertical"-->
+                            <!--android:layout_marginLeft="@dimen/d10"-->
+                            <!--android:src="@drawable/shape_point_fanshaped3" />-->
 
                             <!--<TextView-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"-->
-                                <!--android:text="一小时" />-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="一小时" />-->
 
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_have_data22"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/ll"
@@ -272,6 +295,26 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="一天以上" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/ll_no_data2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/pieChart2"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/shape_point_fanshaped6" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="无数据" />
                         </LinearLayout>
                     </RelativeLayout>
 
@@ -308,6 +351,7 @@
                             android:layout_centerHorizontal="true" />
 
                         <LinearLayout
+                            android:id="@+id/ll_have_data3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/pieChart3"
@@ -339,6 +383,26 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/ll_no_data3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/pieChart3"
+                            android:gravity="center_horizontal"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/shape_point_fanshaped6" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="无数据" />
+                        </LinearLayout>
                     </RelativeLayout>
 
                 </LinearLayout>

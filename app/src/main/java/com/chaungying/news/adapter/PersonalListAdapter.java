@@ -94,6 +94,9 @@ public class PersonalListAdapter extends BaseAdapter {
         }
     }
 
+    /**
+     * 更新选中状态的接口
+     */
     public interface updaStateListener {
         void updateState(int tag);
     }

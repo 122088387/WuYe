@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.view.DownPopWindowPerView;
 import com.chaungying.ji_xiao.adapter.PieNumListAdapter;
 import com.chaungying.ji_xiao.bean.JobHeader;
@@ -54,6 +55,23 @@ import java.util.List;
 public class PieChartAnalyActivity extends BaseActivity implements OnChartValueSelectedListener {
 
     protected String[] mParties = new String[]{"", "", "", "", "", "", "", "", ""};
+
+    @ViewInject(R.id.ll_have_data)
+    private LinearLayout ll_have_data;
+    @ViewInject(R.id.ll)
+    private LinearLayout ll;
+    @ViewInject(R.id.ll_have_data22)
+    private LinearLayout ll_have_data22;
+    @ViewInject(R.id.ll_have_data3)
+    private LinearLayout ll_have_data3;
+
+    @ViewInject(R.id.ll_no_data)
+    private LinearLayout ll_no_data;
+    @ViewInject(R.id.ll_no_data2)
+    private LinearLayout ll_no_data2;
+    @ViewInject(R.id.ll_no_data3)
+    private LinearLayout ll_no_data3;
+
 
     /**
      * 头部标题
@@ -220,32 +238,76 @@ public class PieChartAnalyActivity extends BaseActivity implements OnChartValueS
         mPieChart.setHighlightPerTapEnabled(true);
     }
 
+    private boolean isFullZero = false;
+
     private void setData(PieChart mPieChart, ArrayList<Integer> colors, int... num) {
 
         ArrayList<PieEntry> entries = new ArrayList<PieEntry>();
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
+        //判断是不是所有数据都为0,
         for (int i = 0; i < num.length; i++) {
+            if (num[i] != 0) {
+                isFullZero = false;
+                break;
+            } else if (num[num.length - 1] == 0) {
+                isFullZero = true;
+            }
+        }
+        PieDataSet dataSet;
+        if (isFullZero) {//都为0
+            entries.add(new PieEntry(1, ""));
+            dataSet = new PieDataSet(entries, "");
+            //设置两片之间的空白间隙
+            dataSet.setSliceSpace(0f);
+            dataSet.setSelectionShift(5f);
 
+            // 设置每一扇形的颜色
+            if ((int) mPieChart.getTag() == 1) { //完成率分析
+                colors = colors1;
+                ll_have_data.setVisibility(View.GONE);
+                ll_no_data.setVisibility(View.VISIBLE);
+            } else if ((int) mPieChart.getTag() == 2) { //效率分析
+                colors = colors1;
+                ll.setVisibility(View.GONE);
+                ll_have_data22.setVisibility(View.GONE);
+                ll_no_data2.setVisibility(View.VISIBLE);
+            } else if ((int) mPieChart.getTag() == 3) { //派工数量分析
+                colors = colors1;
+                ll_have_data3.setVisibility(View.GONE);
+                ll_no_data3.setVisibility(View.VISIBLE);
+            }
+            dataSet.setColors(colors);
+        } else {//只要有一个不为0
+            for (int i = 0; i < num.length; i++) {
 //            entries.add(new PieEntry((float) ((num[i] / 100.0 * mult) + mult / 5), mParties[i % mParties.length]));
-            entries.add(new PieEntry((float) (num[i]), mParties[i % mParties.length]));
+                entries.add(new PieEntry((float) (num[i]), mParties[i % mParties.length]));
+            }
+
+            dataSet = new PieDataSet(entries, "");
+            //设置两片之间的空白间隙
+            dataSet.setSliceSpace(0f);
+            dataSet.setSelectionShift(5f);
+
+            // 设置每一扇形的颜色
+            if ((int) mPieChart.getTag() == 1) { //完成率分析
+                colors = colors1;
+                ll_have_data.setVisibility(View.VISIBLE);
+                ll_no_data.setVisibility(View.GONE);
+            } else if ((int) mPieChart.getTag() == 2) { //效率分析
+                colors = colors2;
+                ll.setVisibility(View.VISIBLE);
+                ll_have_data22.setVisibility(View.VISIBLE);
+                ll_no_data2.setVisibility(View.GONE);
+            } else if ((int) mPieChart.getTag() == 3) { //派工数量分析
+                colors = colors1;
+                ll_have_data3.setVisibility(View.VISIBLE);
+                ll_no_data3.setVisibility(View.GONE);
+            }
+            dataSet.setColors(colors);
         }
 
-        PieDataSet dataSet = new PieDataSet(entries, "");
-        //设置两片之间的空白间隙
-        dataSet.setSliceSpace(0f);
-        dataSet.setSelectionShift(5f);
-
-        // 设置每一扇形的颜色
-        if ((int) mPieChart.getTag() == 1) { //完成率分析
-            colors = colors1;
-        } else if ((int) mPieChart.getTag() == 2) { //效率分析
-            colors = colors2;
-        } else if ((int) mPieChart.getTag() == 3) { //派工数量分析
-            colors = colors1;
-        }
-        dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
@@ -339,6 +401,7 @@ public class PieChartAnalyActivity extends BaseActivity implements OnChartValueS
         params1.addParameter(fieldName, val);
         params1.addParameter("departmentId", "");
         params1.setConnectTimeout(30 * 1000);
+        params1.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params1, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

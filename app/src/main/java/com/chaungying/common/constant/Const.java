@@ -13,8 +13,8 @@ public interface Const {
          * 本地服务器测试地址
          */
 
-        public static final String URL_BASE = "http://192.168.1.120:80/";//本地
-//        public static final String URL_BASE = "http://221.238.40.119:30017/";//公网测试
+//        public static final String URL_BASE = "http://192.168.1.120:80/";//本地
+        public static final String URL_BASE = "http://221.238.40.119:30017/";//公网测试
 
 //        public static final String URL_BASE = "http://139.129.10.71:6060/";//正式
 
@@ -353,7 +353,7 @@ public interface Const {
          * 通讯录显示园区列表
          */
         public static final String URL_ADDRESS_PARK_LIST = URL_BASE +
-                "propertyInterface/";
+                "propertyInterface/contacts/showDepartments.action";
         /**
          * 通讯录显示人员列表
          */

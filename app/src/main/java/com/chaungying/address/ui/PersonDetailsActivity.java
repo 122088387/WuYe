@@ -16,6 +16,7 @@ import com.chaungying.common.view.CustomDialog;
 import com.chaungying.metting.view.ProgressUtil;
 import com.chaungying.wuye3.R;
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -52,12 +53,14 @@ public class PersonDetailsActivity extends BaseActivity {
     private ImageView addPerson;
 
     private String tag = "";
+    private String portrait = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         tag = getIntent().getStringExtra("tag");
+        portrait = getIntent().getStringExtra("portrait");
         dataBean = (PersonListBean.DataBean) getIntent().getSerializableExtra("person_bean");
         if ("often".equals(tag)) {
             setActionBar("个人信息", R.drawable.nav_return, 0);
@@ -72,6 +75,11 @@ public class PersonDetailsActivity extends BaseActivity {
         person_details_position.setText(dataBean.getPosition());
         person_details_phone.setText(dataBean.getLoginName());
         person_details_department.setText(dataBean.getDepartmentName());
+        if (portrait != null && portrait.length() > 0) {
+            Picasso.with(this).load(portrait).error(R.drawable.person_touxiang).into(person_details_image);
+        } else {
+            Picasso.with(this).load(R.drawable.person_touxiang).into(person_details_image);
+        }
     }
 
     @Event(value = R.id.title_menu)

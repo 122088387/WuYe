@@ -94,7 +94,8 @@ public class OftenContactFragment extends Fragment implements HttpCallBack, Adap
         PersonListBean.DataBean dataBean = personListBean.getData().get(position);
         Intent intent = new Intent(getContext(), PersonDetailsActivity.class);
         intent.putExtra("person_bean", dataBean);
-        intent.putExtra("tag","often");
+        intent.putExtra("tag", "often");
+        intent.putExtra("portrait", dataBean.getPortrait());
         startActivity(intent);
     }
 }

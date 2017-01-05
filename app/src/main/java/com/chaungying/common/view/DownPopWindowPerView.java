@@ -284,6 +284,7 @@ public class DownPopWindowPerView extends FrameLayout implements View.OnClickLis
             }
             params.addParameter("appId", 110);
             params.addParameter("userId", SPUtils.get(mContext, Const.SPDate.ID, -1));
+            params.addParameter("districtId", SPUtils.get(mContext, Const.SPDate.USER_DISTRICT_ID, ""));
             x.http().post(params, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
@@ -378,6 +379,7 @@ public class DownPopWindowPerView extends FrameLayout implements View.OnClickLis
                     }
                 }
             }
+            params1.addParameter("districtId", SPUtils.get(mContext, Const.SPDate.USER_DISTRICT_ID, ""));
             x.http().post(params1, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
@@ -429,6 +431,7 @@ public class DownPopWindowPerView extends FrameLayout implements View.OnClickLis
                     }
                 }
             }
+            params1.addParameter("districtId", SPUtils.get(mContext, Const.SPDate.USER_DISTRICT_ID, ""));
             x.http().post(params1, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
@@ -460,10 +463,9 @@ public class DownPopWindowPerView extends FrameLayout implements View.OnClickLis
 
                 }
             });
-
-
         } else if (mContext instanceof PerUserCarActivity) { //用车情况使用
             RequestParams params1 = new RequestParams(Const.WuYe.URL_SIGNIN_WORK_CAR_WORK_PERFORMANCE_LIST);
+            params1.addParameter("districtId", SPUtils.get(mContext, Const.SPDate.USER_DISTRICT_ID, ""));
             for (int i = 0; i < itemsBeanList.size(); i++) {
                 int val = itemViewList.get(i).getVal();
                 if (i == 0) {

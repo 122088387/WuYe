@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.ji_xiao.bean.PerSignBean;
 import com.chaungying.ji_xiao.comm.SignAxisValueFormatter;
 import com.chaungying.metting.view.ProgressUtil;
@@ -55,7 +56,7 @@ public class PerSignActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        setActionBar("签到分析", R.drawable.nav_return, 0);
+        setActionBar("日趋势分析", R.drawable.nav_return, 0);
         getData();
 
 //        initView();
@@ -72,6 +73,7 @@ public class PerSignActivity extends BaseActivity {
     private void getData() {
         ProgressUtil.show(this, "加载中...");
         RequestParams params = new RequestParams(Const.WuYe.URL_SIGNIN_WORK_PERFORMANCE);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

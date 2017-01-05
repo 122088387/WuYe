@@ -16,13 +16,16 @@
         android:gravity="center_horizontal"
         android:padding="@dimen/d10">
 
-        <ImageView
+        <com.github.siyamed.shapeimageview.CircularImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/person_details_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/d84"
+            android:layout_height="@dimen/d84"
             android:layout_marginBottom="@dimen/d20"
             android:layout_marginTop="@dimen/d20"
-            android:src="@drawable/shape_person_details_img"/>
+            app:siBorderWidth="1dp"
+            app:siBorderColor="@color/White"
+            android:src="@drawable/qian_dao_tong_ji_head"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"

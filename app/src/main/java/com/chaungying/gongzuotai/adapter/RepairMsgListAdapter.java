@@ -90,7 +90,6 @@ public class RepairMsgListAdapter extends BaseAdapter {
                 holder.item_title = (TextView) convertView.findViewById(R.id.fill_list_item_title);
                 holder.item_data = (TextView) convertView.findViewById(R.id.fill_list_item_data);
                 holder.item_time = (TextView) convertView.findViewById(R.id.fill_list_item_person);
-                //不等于“” 说明是我的保修使用的该适配器
                 holder.fill_list_item_type = (ImageView) convertView.findViewById(R.id.fill_list_item_type);
                 convertView.setTag(holder);
             } else {
@@ -108,7 +107,7 @@ public class RepairMsgListAdapter extends BaseAdapter {
             holder.item_title.setText(repairBean.getTitle());
             holder.item_data.setText(repairBean.getTitle1());
             holder.item_time.setText(repairBean.getTitle2());
-
+            //不等于“” 说明是我的保修使用的该适配器
             if (!type.equals("")) {
                 holder.fill_list_item_type.setVisibility(View.VISIBLE);
             }
@@ -119,7 +118,7 @@ public class RepairMsgListAdapter extends BaseAdapter {
             }
 
             return convertView;
-        } else if (layoutId == 57) {
+        } else if (layoutId == ExtraTag.LAYOUT_TAG_ORDER_MEAL) {
             ViewHolder4 holder;
             if (convertView == null) {
                 holder = new ViewHolder4();

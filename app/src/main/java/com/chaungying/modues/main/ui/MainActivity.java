@@ -2,6 +2,9 @@ package com.chaungying.modues.main.ui;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,12 +16,15 @@ import android.widget.LinearLayout;
 
 import com.chaungying.common.constant.Const;
 import com.chaungying.common.constant.ExtraTag;
+import com.chaungying.common.utils.SPUtils;
+import com.chaungying.common.view.CustomDialog;
 import com.chaungying.gongzuotai.WorkFragment;
 import com.chaungying.modues.main.adapter.MainAdapter;
 import com.chaungying.modues.main.bean.RoleAppsBean;
 import com.chaungying.modues.main.bean.TabEntity;
 import com.chaungying.modues.main.bean.WindowBtnBean;
 import com.chaungying.modues.main.utils.FileUtils;
+import com.chaungying.modues.main.utils.SystemVersionCompareUtils;
 import com.chaungying.modues.main.view.AddressFragment;
 import com.chaungying.modues.main.view.ApplyFragment;
 import com.chaungying.modues.main.view.SetFragment;
@@ -40,7 +46,7 @@ import java.util.List;
  */
 
 @ContentView(R.layout.activity_main1)
-public class MainActivity extends FragmentActivity implements WorkFragment.sendMsgNumberListener, SetFragment.SetSystemUpdateListener {
+public class MainActivity extends FragmentActivity implements WorkFragment.sendMsgNumberListener, SetFragment.SetSystemUpdateListener, SystemVersionCompareUtils.IsNewVersionListener {
 
     //工作台的下标
     private static final int WORK_FRAGMENT_POSITION = 0;
@@ -55,11 +61,11 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
             "设置"};
     //没有按下时
     private int[] mIconUnselectIds = {R.drawable.icon_workbench, R.drawable.icon_apply,
-            R.drawable.icon_mes,//注释时注意
+            R.drawable.icon_address,//注释时注意
             R.drawable.icon_set};
     //按下时的图片
     private int[] mIconSelectIds = {R.drawable.icon_workbench_b, R.drawable.icon_apply_b,
-            R.drawable.icon_mes_b,//注释时注意
+            R.drawable.icon_address_b,//注释时注意
             R.drawable.icon_set_b};
     //创建下部Tab的集合
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
@@ -87,7 +93,11 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
         }
         x.view().inject(this);
         initView();
+        //实现是否新版本的监听接口
+        SystemVersionCompareUtils.isNewVersionListener = this;
+        SystemVersionCompareUtils.isNewVersion(this);
     }
+
 
     @TargetApi(Build.VERSION_CODES.M)
     private void initView() {
@@ -158,6 +168,34 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
 
             }
         });
+    }
+
+    /**
+     * 升级的弹出框
+     */
+    private void showUpdataVersionDialog() {
+        final CustomDialog.Builder dialog = new CustomDialog.Builder(this);
+        dialog.setTitle("升级提示");
+        dialog.setCancle(false);
+        dialog.setMessage(SystemVersionCompareUtils.versionDesc);
+        dialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setNegativeButton("升级", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+                Intent intent1 = new Intent();
+                intent1.setAction(Intent.ACTION_VIEW);
+                intent1.setData(Uri.parse(Const.WuYe.URL_VERSION_SHOW_PAGE));
+                startActivity(intent1);
+            }
+        });
+        dialog.create().show();
     }
 
     public void setWorkListener() {
@@ -239,5 +277,14 @@ public class MainActivity extends FragmentActivity implements WorkFragment.sendM
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void newVersionListener(boolean isNew) {
+        //不是自动登陆，显示升级的弹出框
+        boolean isAuto = (boolean) SPUtils.get(this, Const.SPDate.LOGIN_AUTO, false);
+        if (isAuto && !isNew) {
+            showUpdataVersionDialog();
+        }
     }
 }

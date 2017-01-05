@@ -23,6 +23,7 @@ public class CustomDialog extends Dialog {
         super(context, theme);
     }
 
+
     public static class Builder {
         private CustomDialog dialog;
         private Context context;
@@ -31,6 +32,7 @@ public class CustomDialog extends Dialog {
         private String hint;
         private String positiveButtonText;
         private String negativeButtonText;
+        private boolean isCancle = true;
         private View contentView;
         private OnClickListener positiveButtonClickListener;
         private OnClickListener negativeButtonClickListener;
@@ -123,6 +125,11 @@ public class CustomDialog extends Dialog {
             return this;
         }
 
+        public Builder setCancle(boolean isCancle) {
+            this.isCancle = isCancle;
+            return this;
+        }
+
         public CustomDialog create() {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -186,6 +193,7 @@ public class CustomDialog extends Dialog {
                                 LayoutParams.FILL_PARENT));
             }
             dialog.setContentView(layout);
+            dialog.setCancelable(isCancle);
             this.dialog = dialog;
             return dialog;
         }

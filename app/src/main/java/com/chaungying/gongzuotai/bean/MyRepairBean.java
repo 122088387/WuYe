@@ -184,7 +184,7 @@ public class MyRepairBean {
 //     * orders : 1
 //     */
 //
-//    private List<List<DataBean>> data;
+//    private List<List<DBDataBean>> data;
 //
 //    public int getRespCode() {
 //        return respCode;
@@ -218,11 +218,11 @@ public class MyRepairBean {
 //        this.type = type;
 //    }
 //
-//    public List<List<DataBean>> getData() {
+//    public List<List<DBDataBean>> getData() {
 //        return data;
 //    }
 //
-//    public void setData(List<List<DataBean>> data) {
+//    public void setData(List<List<DBDataBean>> data) {
 //        this.data = data;
 //    }
 //

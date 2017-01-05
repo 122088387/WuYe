@@ -38,7 +38,7 @@ public class ActivityParkList extends BaseActivity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        setActionBar("园区导航",R.drawable.nav_return,0);
+        setActionBar("园区导航", R.drawable.nav_return, 0);
         parkListAdapter = new ParkListAdapter(this);
         lv_park_list.setAdapter(parkListAdapter);
         initData();
@@ -49,6 +49,7 @@ public class ActivityParkList extends BaseActivity implements AdapterView.OnItem
         ProgressUtil.show(this, "加载中...");
 //        row=1&page=1
         RequestParams params = new RequestParams(Const.WuYe.URL_PARK_LIST);
+        params.addParameter("isDistrict", 0);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

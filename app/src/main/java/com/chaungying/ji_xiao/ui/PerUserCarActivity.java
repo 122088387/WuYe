@@ -7,6 +7,7 @@ import android.widget.ListView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.view.DownPopWindowPerView;
 import com.chaungying.ji_xiao.adapter.UserCarAdapter;
 import com.chaungying.ji_xiao.bean.JobHeader;
@@ -96,6 +97,7 @@ public class PerUserCarActivity extends BaseActivity {
 
         //加载列表中的数据
         RequestParams params1 = new RequestParams(Const.WuYe.URL_SIGNIN_WORK_CAR_WORK_PERFORMANCE_LIST);
+        params1.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params1, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

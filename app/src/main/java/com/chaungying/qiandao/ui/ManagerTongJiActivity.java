@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.utils.date.DateStyle;
 import com.chaungying.common.utils.date.DateUtil;
 import com.chaungying.metting.view.ProgressUtil;
@@ -101,6 +102,7 @@ public class ManagerTongJiActivity extends BaseActivity implements View.OnClickL
         ProgressUtil.show(this, "加载中...");
         RequestParams params = new RequestParams(Const.WuYe.URL_SIGN_IN_WORK);
         params.addParameter("date", date);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

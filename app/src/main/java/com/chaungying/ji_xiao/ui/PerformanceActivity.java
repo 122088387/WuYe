@@ -73,7 +73,7 @@ public class PerformanceActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.per_singin_anay://签到
+            case R.id.per_singin_anay://日趋势分析
                 openActivty(this, PerSignActivity.class, null, null);
                 break;
             case R.id.per_ji_xiao_rank://绩效排名

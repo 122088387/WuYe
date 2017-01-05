@@ -2,6 +2,7 @@ package com.chaungying.modues.login.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -31,9 +32,11 @@ import com.chaungying.common.utils.KeyBoardUtils;
 import com.chaungying.common.utils.L;
 import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.utils.T;
+import com.chaungying.common.view.CustomDialog;
 import com.chaungying.modues.login.bean.HttpRequestBase;
 import com.chaungying.modues.main.bean.RoleAppsBean;
 import com.chaungying.modues.main.ui.MainActivity;
+import com.chaungying.modues.main.utils.SystemVersionCompareUtils;
 import com.chaungying.qiandao.AnimationUtil;
 import com.chaungying.sever.MyServiceZHY;
 import com.chaungying.wuye3.R;
@@ -58,7 +61,7 @@ import cn.jpush.android.api.TagAliasCallback;
  * @author 种耀淮 2016/6/29创建
  */
 @ContentView(R.layout.activity_login)
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements SystemVersionCompareUtils.IsNewVersionListener {
 
     public static final int FINISH = 0x0004;
 
@@ -127,6 +130,9 @@ public class LoginActivity extends AppCompatActivity {
 
         executeAmin();
         createEditListener();
+        //实现是否新版本的监听接口
+        SystemVersionCompareUtils.isNewVersionListener = this;
+        SystemVersionCompareUtils.isNewVersion(this);
     }
 
     /**
@@ -491,5 +497,38 @@ public class LoginActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         JPushInterface.onPause(this);
+    }
+
+    @Override
+    public void newVersionListener(boolean isNew) {
+        //不是自动登陆，显示升级的弹出框
+        boolean isAuto = (boolean) SPUtils.get(this, Const.SPDate.LOGIN_AUTO, false);
+        if (!isAuto && !isNew) {
+            showUpdataVersionDialog();
+        }
+    }
+
+    private void showUpdataVersionDialog() {
+        final CustomDialog.Builder dialog = new CustomDialog.Builder(this);
+        dialog.setTitle("升级提示");
+        dialog.setCancle(false);
+        dialog.setMessage(SystemVersionCompareUtils.versionDesc);
+        dialog.setPositiveButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setNegativeButton("升级", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialog.dismiss();
+                Intent intent1 = new Intent();
+                intent1.setAction(Intent.ACTION_VIEW);
+                intent1.setData(Uri.parse(Const.WuYe.URL_VERSION_SHOW_PAGE));
+                startActivity(intent1);
+            }
+        });
+        dialog.create().show();
     }
 }

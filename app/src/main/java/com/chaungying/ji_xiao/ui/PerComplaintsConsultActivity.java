@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.ji_xiao.bean.PerComplaintsConsultBean;
 import com.chaungying.metting.view.ProgressUtil;
 import com.chaungying.wuye3.R;
@@ -70,6 +71,7 @@ public class PerComplaintsConsultActivity extends BaseActivity {
     private void initData() {
         ProgressUtil.show(this, "加载中...");
         RequestParams params = new RequestParams(Const.WuYe.URL_SIGNIN_WORK_SERVICE_WORK_PERFORMANCE_LIST);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

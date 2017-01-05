@@ -10,6 +10,7 @@ public class VersionBean {
      */
 
     private String version;
+    private String desc;
 
     public String getVersion() {
         return version;
@@ -17,5 +18,13 @@ public class VersionBean {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

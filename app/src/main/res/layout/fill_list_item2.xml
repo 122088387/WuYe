@@ -38,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/colorPrimary"
-                android:maxWidth="@dimen/d100"
+                android:gravity="right"
+                android:minWidth="@dimen/d100"
                 android:singleLine="true"
                 tools:text="2016-05-23"/>
         </RelativeLayout>

@@ -77,6 +77,7 @@ public class LeaveListFragment extends BaseFragment implements AdapterView.OnIte
         } else {
             params.addParameter("userId", TongJiActivity.userId);
         }
+        params.addParameter("districtId", SPUtils.get(getContext(), Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

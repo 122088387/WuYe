@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import com.chaungying.BaseActivity;
 import com.chaungying.common.constant.Const;
+import com.chaungying.common.utils.SPUtils;
 import com.chaungying.common.view.DownPopWindowPerView;
 import com.chaungying.ji_xiao.adapter.JobPerformanceAdaper;
 import com.chaungying.ji_xiao.bean.JobHeader;
@@ -366,6 +367,7 @@ public class PerRepairDispatchActivity extends BaseActivity implements OnChartVa
         RequestParams params = new RequestParams(Const.WuYe.URL_JOP_PER);
         params.setConnectTimeout(30 * 1000);
         params.addParameter(filedName, val);
+        params.addParameter("districtId", SPUtils.get(this, Const.SPDate.USER_DISTRICT_ID, ""));
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
