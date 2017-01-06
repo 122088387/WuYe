@@ -57,9 +57,9 @@ public class PersonListAdapter extends BaseAdapter {
             holer = (ViewHoler) convertView.getTag();
         }
         if (list.get(position).getPortrait() != null && list.get(position).getPortrait().length() > 0) {
-            Picasso.with(mContext).load(list.get(position).getPortrait()).error(R.drawable.person_touxiang).into(holer.person_list_iv);
+            Picasso.with(mContext).load(list.get(position).getPortrait()).error(R.drawable.qian_dao_tong_ji_head).into(holer.person_list_iv);
         } else {
-            Picasso.with(mContext).load(R.drawable.person_touxiang).into(holer.person_list_iv);
+            Picasso.with(mContext).load(R.drawable.qian_dao_tong_ji_head).into(holer.person_list_iv);
         }
         holer.person_list_name.setText(list.get(position).getUserName());
         holer.person_list_position.setText(list.get(position).getPosition());

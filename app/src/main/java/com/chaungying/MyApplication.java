@@ -6,9 +6,11 @@ import android.os.Environment;
 import android.support.multidex.MultiDexApplication;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.chaungying.common.utils.GlideImageLoader;
 import com.chaungying.common.utils.L;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.lzy.imagepicker.ImagePicker;
 import com.orhanobut.logger.Logger;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.vmeet.netsocket.bean.SocketObj;
@@ -78,6 +80,16 @@ public class MyApplication extends MultiDexApplication {
         Logger.init("WuYe3");
         //二维码扫描初始化
         ZXingLibrary.initDisplayOpinion(this);
+        //仿微信的图片选择器初始化
+        initImagePicker();
+    }
+
+    private void initImagePicker() {
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setImageLoader(new GlideImageLoader());   //设置图片加载器
+        imagePicker.setShowCamera(false);                      //显示拍照按钮
+        imagePicker.setCrop(false);                             //是否裁剪
+        imagePicker.setMultiMode(false);                        //是否多选
     }
 
     /**

@@ -140,7 +140,7 @@ public class ManagerTongJiBean implements Serializable {
 
         @Override
         public int compareTo(DataBean dataBean) {
-            return (int) (Double.parseDouble(dataBean.getCounts()) / 60 * 10000) - (int) (Double.parseDouble(dataBean.getCounts()) / 60 * 10000);
+            return Double.parseDouble(dataBean.getCounts()) > (Double.parseDouble(this.counts)) ? 1 : -1;
         }
     }
 }

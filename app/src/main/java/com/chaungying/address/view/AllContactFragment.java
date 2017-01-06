@@ -44,12 +44,12 @@ public class AllContactFragment extends Fragment implements AdapterView.OnItemCl
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getNetContact();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getNetContact();
     }
 
     /**

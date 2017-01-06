@@ -21,6 +21,7 @@ import com.chaungying.ji_xiao.bean.JobHeader;
 import com.chaungying.ji_xiao.bean.JobPer;
 import com.chaungying.ji_xiao.bean.JobPerCon;
 import com.chaungying.ji_xiao.bean.PerRepairDispatchBean;
+import com.chaungying.metting.view.ProgressUtil;
 import com.chaungying.modues.main.ui.PersonalCardActivity;
 import com.chaungying.site_repairs.view.PullToRefreshLayout;
 import com.chaungying.wuye3.R;
@@ -352,7 +353,6 @@ public class PerRepairDispatchActivity extends BaseActivity implements OnChartVa
 
             @Override
             public void onFinished() {
-
             }
         });
     }
@@ -364,6 +364,7 @@ public class PerRepairDispatchActivity extends BaseActivity implements OnChartVa
      * 刚进入界面请求数据  请求员工筛选默认的总数据
      */
     private void request(String filedName, int val) {
+        ProgressUtil.show(this, "");
         RequestParams params = new RequestParams(Const.WuYe.URL_JOP_PER);
         params.setConnectTimeout(30 * 1000);
         params.addParameter(filedName, val);
@@ -413,7 +414,7 @@ public class PerRepairDispatchActivity extends BaseActivity implements OnChartVa
 
             @Override
             public void onFinished() {
-
+                ProgressUtil.close();
             }
         });
 

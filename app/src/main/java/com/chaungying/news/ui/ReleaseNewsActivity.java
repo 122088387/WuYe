@@ -2,7 +2,6 @@ package com.chaungying.news.ui;
 
 import android.Manifest;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,6 +27,9 @@ import com.chaungying.metting.view.ProgressUtil;
 import com.chaungying.news.view.CameraViewOfNews;
 import com.chaungying.wuye3.R;
 import com.google.gson.Gson;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -191,10 +193,12 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
 
     /////////////////////相册选择图片////////////////
     public void selectPhoto() {
-        Intent local = new Intent();
-        local.setType("image/*");
-        local.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(local, SELECT_PHONE);
+//        Intent local = new Intent();
+//        local.setType("image/*");
+//        local.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(local, SELECT_PHONE);
+        Intent intent = new Intent(this, ImageGridActivity.class);
+        startActivityForResult(intent, SELECT_PHONE);
     }
 
     @Override
@@ -232,17 +236,32 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
                 break;
             case SELECT_PHONE://选择照片的请求code
                 if (data != null) {
-                    Uri originalUri = data.getData();
-                    String[] proj = {MediaStore.Images.Media.DATA};
-                    //好像是android多媒体数据库的封装接口，具体的看Android文档
-                    Cursor cursor = managedQuery(originalUri, proj, null, null, null);
-                    //按我个人理解 这个是获得用户选择的图片的索引值
-                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
-                    cursor.moveToFirst();
-                    String path = cursor.getString(column_index);
-                    drr.add(path);
-
+//                    Uri originalUri = data.getData();
+//                    if(originalUri!=null){
+//                        String uriStr=originalUri.toString();
+//                        String path=uriStr.substring(10,uriStr.length());
+//                        if(path.startsWith("com.sec.android.gallery3d")){
+//                            return;
+//                        }
+//                    }
+//                    String[] proj = {MediaStore.Images.Media.DATA};
+//                    //好像是android多媒体数据库的封装接口，具体的看Android文档
+//                    Cursor cursor = managedQuery(originalUri, proj, null, null, null);
+//                    //按我个人理解 这个是获得用户选择的图片的索引值
+//                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
+//                    cursor.moveToFirst();
+//                    String path = cursor.getString(column_index);
+//                    drr.add(path);
+                    if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {//注意：选择图片库中的返回码resultCode已经存在
+                        //添加图片返回
+                        if (data != null) {
+                            ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                            if (images.size() > 0) {
+                                drr.add(images.get( 0).path);
+                            }
+                        }
+                    }
                     //对图片处理之后放入到内存卡中
                     Bitmap bitmap1 = Bimp.revitionImageSize(drr.get(drr.size() - 1));
                     PhotoActivity.bitmap.add(bitmap1);
@@ -271,6 +290,7 @@ public class ReleaseNewsActivity extends BaseActivity implements View.OnClickLis
      *
      * @param path
      */
+
     private void setData(List<String> path) {
         if (path.size() > 0) {
 //            for (int i = 0; i < path.size(); i++) {

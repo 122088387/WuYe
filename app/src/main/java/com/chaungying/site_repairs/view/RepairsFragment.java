@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.ThumbnailUtils;
@@ -80,6 +79,9 @@ import com.chaungying.wuye3.R;
 import com.chaungying.zixunjieda.ui.ZiXunJieDaConfigActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -523,10 +525,12 @@ public class RepairsFragment extends BaseFragment implements View.OnClickListene
     private static final int SELECT_PHONE = 0X0025;
 
     public void selectPhoto() {
-        Intent local = new Intent();
-        local.setType("image/*");
-        local.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(local, SELECT_PHONE);
+//        Intent local = new Intent();
+//        local.setType("image/*");
+//        local.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(local, SELECT_PHONE);
+        Intent intent = new Intent(mContext, ImageGridActivity.class);
+        startActivityForResult(intent, SELECT_PHONE);
     }
 
     //////////////////////////////////////////////对涂鸦界面的控制/////////////////////////////////
@@ -850,16 +854,23 @@ public class RepairsFragment extends BaseFragment implements View.OnClickListene
                 break;
             case SELECT_PHONE://选择照片的请求code
                 if (data != null) {
-                    Uri originalUri = data.getData();
-                    String[] proj = {MediaStore.Images.Media.DATA};
-                    //好像是android多媒体数据库的封装接口，具体的看Android文档
-                    Cursor cursor = mContext.managedQuery(originalUri, proj, null, null, null);
-                    //按我个人理解 这个是获得用户选择的图片的索引值
-                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
-                    cursor.moveToFirst();
-                    String path = cursor.getString(column_index);
-                    drr.add(path);
+//                    Uri originalUri = data.getData();
+//                    String[] proj = {MediaStore.Images.Media.DATA};
+//                    //好像是android多媒体数据库的封装接口，具体的看Android文档
+//                    Cursor cursor = mContext.managedQuery(originalUri, proj, null, null, null);
+//                    //按我个人理解 这个是获得用户选择的图片的索引值
+//                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
+//                    cursor.moveToFirst();
+//                    String path = cursor.getString(column_index);
+//                    drr.add(path);
+
+                    if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {//注意：选择图片库中的返回码resultCode已经存在
+                        ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                        if (images.size() > 0) {
+                            drr.add(images.get(0).path);
+                        }
+                    }
 
                     //对图片处理之后放入到内存卡中
                     Bitmap bitmap1 = Bimp.revitionImageSize(drr.get(drr.size() - 1));

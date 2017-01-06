@@ -13,10 +13,10 @@ public interface Const {
          * 本地服务器测试地址
          */
 
-        public static final String URL_BASE = "http://192.168.1.120:80/";//本地
+//        public static final String URL_BASE = "http://192.168.1.120:80/";//本地
 //        public static final String URL_BASE = "http://221.238.40.119:30017/";//公网测试
 
-//        public static final String URL_BASE = "http://139.129.10.71:6060/";//正式
+        public static final String URL_BASE = "http://139.129.10.71:6060/";//正式
 
         /**
          * 悬浮按钮获取的数据

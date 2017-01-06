@@ -2,9 +2,7 @@ package com.chaungying.modues.main.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +24,9 @@ import com.chaungying.modues.main.view.HeadPopupWindow;
 import com.chaungying.wuye3.R;
 import com.flyco.dialog.listener.OnOperItemClickL;
 import com.flyco.dialog.widget.ActionSheetDialog;
+import com.lzy.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.squareup.picasso.Picasso;
 
 import org.xutils.view.annotation.ContentView;
@@ -36,6 +37,7 @@ import org.xutils.x;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -134,10 +136,12 @@ public class PersonalDataActivity extends BaseActivity {
                     startActivityForResult(intent, TAKE_PICTURE);
                 } else if (position == 1) {
                     //相册
-                    Intent local = new Intent();
-                    local.setType("image/*");
-                    local.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(local, SELECT_PHONE);
+//                    Intent local = new Intent();
+//                    local.setType("image/*");
+//                    local.setAction(Intent.ACTION_GET_CONTENT);
+//                    startActivityForResult(local, SELECT_PHONE);
+                    Intent intent = new Intent(PersonalDataActivity.this, ImageGridActivity.class);
+                    startActivityForResult(intent, HeadPopupWindow.SELECT_PHONE);
                 }
                 dialog.dismiss();
             }
@@ -150,16 +154,16 @@ public class PersonalDataActivity extends BaseActivity {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case HeadPopupWindow.SELECT_PHONE:
-                    Uri originalUri = data.getData();
-                    String[] proj = {MediaStore.Images.Media.DATA};
-                    //好像是android多媒体数据库的封装接口，具体的看Android文档
-                    Cursor cursor = managedQuery(originalUri, proj, null, null, null);
-                    //按我个人理解 这个是获得用户选择的图片的索引值
-                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
-                    cursor.moveToFirst();
-                    String path = cursor.getString(column_index);
-                    upLoadHeadImg(path);
+//                    Uri originalUri = data.getData();
+//                    String[] proj = {MediaStore.Images.Media.DATA};
+//                    //好像是android多媒体数据库的封装接口，具体的看Android文档
+//                    Cursor cursor = managedQuery(originalUri, proj, null, null, null);
+//                    //按我个人理解 这个是获得用户选择的图片的索引值
+//                    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+//                    //将光标移至开头 ，这个很重要，不小心很容易引起越界
+//                    cursor.moveToFirst();
+//                    String path = cursor.getString(column_index);
+//                    upLoadHeadImg(path);
                     break;
                 case HeadPopupWindow.TAKE_PICTURE:
                     Bundle bundle = data.getExtras();
@@ -180,6 +184,14 @@ public class PersonalDataActivity extends BaseActivity {
                     String tempPath = Bimp.saveBitmap(bitmap, file.getPath());
                     upLoadHeadImg(tempPath);
                     break;
+            }
+        } else if (resultCode == ImagePicker.RESULT_CODE_ITEMS) {//注意：选择图片库中的返回码resultCode已经存在
+            //添加图片返回
+            if (data != null && requestCode == HeadPopupWindow.SELECT_PHONE) {
+                ArrayList<ImageItem> images = (ArrayList<ImageItem>) data.getSerializableExtra(ImagePicker.EXTRA_RESULT_ITEMS);
+                if (images.size() > 0) {
+                    upLoadHeadImg(images.get(0).path);
+                }
             }
         }
     }

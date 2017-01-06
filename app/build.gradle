@@ -8,8 +8,8 @@ android {
         applicationId "com.chaungying.wuye3"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 26
-        versionName "1.5.3"
+        versionCode 27
+        versionName "1.5.4"
         multiDexEnabled true
     }
     buildTypes {
@@ -70,4 +70,6 @@ dependencies {
     compile 'com.qiushui:blurredview:0.8.1'
     //logger 日志库
     compile 'com.orhanobut:logger:1.15'
+    //仿微信的图片选择
+    compile 'com.lzy.widget:imagepicker:0.3.2'
 }

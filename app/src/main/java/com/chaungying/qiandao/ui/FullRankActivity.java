@@ -45,6 +45,8 @@ public class FullRankActivity extends BaseActivity {
     private void initView() {
         setActionBar("排名", R.drawable.nav_return, 0);
         list = (ArrayList<ManagerTongJiBean.DataBean>) getIntent().getExtras().getSerializable("list");
+        //排序交给服务器
+//        Collections.sort(list);
         adapter = new FullRankAdapter(this);
         adapter.setList(list);
         lv_full_rank.setAdapter(adapter);
@@ -55,7 +57,7 @@ public class FullRankActivity extends BaseActivity {
                 int userId = list.get(position).getUserId();
                 String userName = list.get(position).getUserName();
                 bundle.putInt("userId", userId);
-                bundle.putString("userName",userName);
+                bundle.putString("userName", userName);
                 openActivty(FullRankActivity.this, PersonalCardActivity.class, bundle, null);
             }
         });

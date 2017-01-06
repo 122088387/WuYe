@@ -22,6 +22,7 @@ import com.chaungying.ji_xiao.bean.JobPer;
 import com.chaungying.ji_xiao.bean.JobPerCon;
 import com.chaungying.ji_xiao.bean.PerRepairDispatchBean;
 import com.chaungying.ji_xiao.bean.PieNumListBean;
+import com.chaungying.metting.view.ProgressUtil;
 import com.chaungying.site_repairs.view.PullToRefreshLayout;
 import com.chaungying.wuye3.R;
 import com.github.mikephil.charting.animation.Easing;
@@ -395,6 +396,7 @@ public class PieChartAnalyActivity extends BaseActivity implements OnChartValueS
      * 刚进入界面请求数据  请求员工筛选默认的总数据
      */
     private void request(String fieldName, int val) {
+        ProgressUtil.show(this, "");
         //对于图表数据的请求
         RequestParams params1 = new RequestParams(Const.WuYe.URL_SIGNIN_WORK_REPAIRCHARTS_LIST);
 //        date=时间id&departmentId=部门id
@@ -433,7 +435,7 @@ public class PieChartAnalyActivity extends BaseActivity implements OnChartValueS
 
             @Override
             public void onFinished() {
-
+                ProgressUtil.close();
             }
         });
     }

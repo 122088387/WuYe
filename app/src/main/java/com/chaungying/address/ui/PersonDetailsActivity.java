@@ -76,9 +76,9 @@ public class PersonDetailsActivity extends BaseActivity {
         person_details_phone.setText(dataBean.getLoginName());
         person_details_department.setText(dataBean.getDepartmentName());
         if (portrait != null && portrait.length() > 0) {
-            Picasso.with(this).load(portrait).error(R.drawable.person_touxiang).into(person_details_image);
+            Picasso.with(this).load(portrait).error(R.drawable.qian_dao_tong_ji_head).into(person_details_image);
         } else {
-            Picasso.with(this).load(R.drawable.person_touxiang).into(person_details_image);
+            Picasso.with(this).load(R.drawable.qian_dao_tong_ji_head).into(person_details_image);
         }
     }
 
